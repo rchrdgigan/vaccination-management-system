@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChildrenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 Route::middleware('auth')->group(function(){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    //children
+    Route::controller(ChildrenController::class)
+        ->as('children.')
+        ->prefix('children')
+        ->group(function(){
+            Route::get('/', 'index')->name('index');
+        });
+
+
 });
 Auth::routes();
 
