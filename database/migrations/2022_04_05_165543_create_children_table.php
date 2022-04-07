@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('children', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('barangay_id');
-            $table->dateTime('date_of_registration');
-            $table->dateTime('date_of_birth');
-            $table->dateTime('place_of_birth');
+            $table->date('date_of_registration');
+            $table->date('date_of_birth');
+            $table->string('place_of_birth');
             $table->string('childs_name');
             $table->string('gender');
             $table->string('mothers_name');
@@ -27,7 +26,8 @@ return new class extends Migration
             $table->double('birth_weight');
             $table->timestamps();
 
-            $table->foreign('barangay_id')->references('id')->on('barangays')->onDelete('cascade');
+            $table->foreignId('barangay_id')->nullable()->constrained()->cascadeOnDelete();
+
         });
     }
 

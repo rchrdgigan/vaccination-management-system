@@ -2,6 +2,104 @@
 @section('title')
 Children
 @endsection
+@section('breadcrumbs')
+Children
+@endsection
 @section('content')
-    Children
+<div class="col-span-12 mt-6">
+    <x-success/>
+
+    <div class="intro-y block sm:flex items-center h-10">
+        <h2 class="text-lg font-medium truncate mr-5">
+            Children List
+        </h2>
+        <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
+            <a href="{{route('children.create')}}" class="button text-white bg-theme-1 shadow-md mr-2"> Add Children </a>
+            <button class="button px-2 mr-1 bg-theme-1 text-white"> <span class="w-5 h-5 flex items-center justify-center"> <i data-feather="file-text" class="w-4 h-4"></i> </span> </button>
+        </div>
+    </div>
+    <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+        <table class="table table-report sm:mt-2">
+            <thead>
+                <tr>
+                    <th class="text-center whitespace-no-wrap">CHILD'S Name</th>
+                    <th class="text-center whitespace-no-wrap">MOTHER'S NAME</th>
+                    <th class="text-center whitespace-no-wrap">FATHER'S NAME</th>
+                    <th class="text-center whitespace-no-wrap">DATE OF BIRTH</th>
+                    <th class="text-center whitespace-no-wrap">PLACE OF BIRTH</th>
+                    <th class="text-center whitespace-no-wrap">DATE OF REGISTRATION</th>
+                    <th class="text-center whitespace-no-wrap">GENDER</th>
+                    <th class="text-center whitespace-no-wrap">BIRTH HEIGHT</th>
+                    <th class="text-center whitespace-no-wrap">BIRTH WEIGHT</th>
+                    <th class="text-center whitespace-no-wrap">BARANGAY</th>
+                    <th class="text-center whitespace-no-wrap">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($childrens as $child)
+                <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-medium whitespace-no-wrap">{{$child->childs_name}}</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-medium whitespace-no-wrap">{{$child->mothers_name}}</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-medium whitespace-no-wrap">{{$child->fathers_name}}</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-medium whitespace-no-wrap">{{$child->date_of_birth}}</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-medium whitespace-no-wrap">{{$child->place_of_birth}}</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-medium whitespace-no-wrap">{{$child->date_of_registration}}</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-medium whitespace-no-wrap">{{$child->gender}}</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-medium whitespace-no-wrap">{{$child->birth_height}}</p>
+                        </div>
+                    </td>
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-medium whitespace-no-wrap">{{$child->birth_weight}}</p>
+                        </div>
+                    </td>
+
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-medium whitespace-no-wrap">{{$child->barangay->barangay_name}}</p>
+                        </div>
+                    </td>
+                    <td class="table-report__action w-56">
+                        <div class="flex justify-center items-center">
+                            <a class="flex items-center mr-3" href=""> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
+                            <a class="flex items-center text-theme-6" href=""> <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+
+            </tbody>
+        </table>
+    </div>
+</div>
 @endsection

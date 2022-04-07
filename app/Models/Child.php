@@ -9,22 +9,23 @@ class Child extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'barangay_id',
-        'date_of_registration',
-        'date_of_birth',
-        'place_of_birth',
-        'childs_name',
-        'gender',
-        'mothers_name',
-        'fathers_name',
-        'birth_height',
-        'birth_weight',
-    ];
+    // protected $fillable = [
+    //     'barangay_id',
+    //     'date_of_registration',
+    //     'date_of_birth',
+    //     'place_of_birth',
+    //     'childs_name',
+    //     'gender',
+    //     'mothers_name',
+    //     'fathers_name',
+    //     'birth_height',
+    //     'birth_weight',
+    // ];
+    protected $guarded=[];
 
     public function barangay()
     {
-        return $this->belongsTo(Barangay::class);
+        return $this->belongsTo(Barangay::class, 'barangay_id');
     }
 
     public function child_vaccine()

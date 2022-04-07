@@ -1,5 +1,5 @@
 <div class="top-bar">
-    <div class="-intro-x breadcrumb mr-auto hidden sm:flex"> <a href="" class="">Application</a> <i data-feather="chevron-right" class="breadcrumb__icon"></i> <a href="" class="breadcrumb--active">Dashboard</a> </div>
+    <div class="-intro-x breadcrumb mr-auto hidden sm:flex"> <a href="" class="">Application</a> <i data-feather="chevron-right" class="breadcrumb__icon"></i> <a href="" class="breadcrumb--active">@yield('breadcrumbs')</a> </div>
     <div class="intro-x relative mr-3 sm:mr-6">
         <div class="search hidden sm:block">
             <input type="text" class="search__input input placeholder-theme-13" placeholder="Search...">

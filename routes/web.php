@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function(){
         ->prefix('children')
         ->group(function(){
             Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
         });
 
 
