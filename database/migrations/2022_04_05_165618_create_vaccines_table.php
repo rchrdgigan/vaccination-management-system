@@ -17,9 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('barangay_id');
             $table->string('vaccines_name');
-            $table->text('has_1st_dose')->default(0);
-            $table->text('has_2nd_dose')->default(0);
-            $table->text('has_3nd_dose')->default(0);
+            $table->string('has_dose');
             $table->timestamps();
 
             $table->foreign('barangay_id')->references('id')->on('barangays')->onDelete('cascade');

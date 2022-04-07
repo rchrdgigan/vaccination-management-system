@@ -18,11 +18,11 @@ return new class extends Migration
             $table->unsignedBigInteger('child_id');
             $table->unsignedBigInteger('vaccine_id');
             $table->dateTime('inj_1st_date');
-            $table->dateTime('inj_2st_date');
-            $table->dateTime('inj_3st_date');
+            $table->dateTime('inj_2nd_date');
+            $table->dateTime('inj_3rd_date');
             $table->text('has_inj_1st_dose')->default(0);
-            $table->text('has_inj_2st_dose')->default(0);
-            $table->text('has_inj_3st_dose')->default(0);
+            $table->text('has_inj_2nd_dose')->default(0);
+            $table->text('has_inj_3rd_dose')->default(0);
             $table->timestamps();
 
             $table->foreign('child_id')->references('id')->on('children')->onDelete('cascade');

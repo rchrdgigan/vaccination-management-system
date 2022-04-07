@@ -38,6 +38,22 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <label for="barangay" class="col-md-4 col-form-label text-md-end">{{ __('Barangay') }}</label>
+                            <div class="relative mt-2" >
+                                <select class="input w-full  border mr-2" name="barangay_id">
+                                    @foreach ($barangays as $barangay)
+                                        <option value="{{$barangay->id}}">{{$barangay->barangay_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                                @error('barangay')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
