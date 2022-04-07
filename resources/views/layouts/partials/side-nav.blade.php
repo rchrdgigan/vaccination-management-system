@@ -17,5 +17,11 @@
                             <div class="side-menu__title"> Children </div>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{route('vaccines.index')}}" class="side-menu {{!request()->routeIs('vaccines.*') ?: 'side-menu--active'}}">
+                            <div class="side-menu__icon"> <i data-feather="home"></i> </div>
+                            <div class="side-menu__title"> Vaccines </div>
+                        </a>
+                    </li>
                 </ul>
             </nav>

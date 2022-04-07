@@ -18,11 +18,6 @@ class Barangay extends Model
         return $this->hasMany(Child::class);
     }
 
-    public function midwife()
-    {
-        return $this->hasMany(Midwife::class);
-    }
-
     public function vaccine()
     {
         return $this->hasMany(Vaccine::class);

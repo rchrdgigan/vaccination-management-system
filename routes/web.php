@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\ChildrenController;
+use App\Http\Controllers\{ChildrenController,VaccinesController};
+use App\Models\Barangay;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,8 +28,23 @@ Route::middleware('auth')->group(function(){
             Route::get('/edit/{child}', 'edit')->name('edit');
             Route::put('/update/{child}', 'update')->name('update');
         });
+    //children
+    Route::controller(VaccinesController::class)
+        ->as('vaccines.')
+        ->prefix('vaccines')
+        ->group(function(){
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{vaccine}', 'edit')->name('edit');
+            Route::put('/update/{vaccine}', 'update')->name('update');
+        });
 
 
 });
 Auth::routes();
 
+Route::get('/register', function(){
+    $barangays = Barangay::get();
+    return view('auth.register', compact('barangays'));
+})->name('register');
