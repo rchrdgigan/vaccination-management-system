@@ -7,6 +7,8 @@
         <link href="assets/images/logo.svg" rel="shortcut icon">
 
         <title>@yield('title')</title>
+        @stack('links')
+        @livewireStyles
         <link rel="stylesheet" href="{{asset('assets/css/app.css')}}" />
     </head>
     <!-- END: Head -->
@@ -24,8 +26,11 @@
         <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="{{asset('assets/js/app.js')}}"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        @livewireScripts
+        @stack('scripts')
         <script>
-             window.addEventListener('swal:confirm', event => {
+            window.addEventListener('swal:confirm', event => {
             Swal.fire({
                 position: 'top-center',
                 icon: 'warning',
