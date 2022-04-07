@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChildrenController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,11 +13,22 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware('auth')->group(function(){
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', function () {
-    return view('welcome');
+    //children
+    Route::controller(ChildrenController::class)
+        ->as('children.')
+        ->prefix('children')
+        ->group(function(){
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{child}', 'edit')->name('edit');
+            Route::put('/update/{child}', 'update')->name('update');
+        });
+
+
 });
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
