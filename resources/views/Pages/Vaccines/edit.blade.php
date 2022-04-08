@@ -3,7 +3,7 @@
 Edit | Vaccines
 @endsection
 @section('breadcrumbs')
-Edit
+Vaccines > Edit
 @endsection
 @section('content')
 <div class="intro-y block sm:flex items-center h-10 mt-6">

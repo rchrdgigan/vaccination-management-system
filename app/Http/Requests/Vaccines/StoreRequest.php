@@ -24,7 +24,7 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'vaccines_name' => 'required|unique:vaccines',
+            'vaccines_name' => ['required'],
             'has_dose' => ['required'],
         ];
     }

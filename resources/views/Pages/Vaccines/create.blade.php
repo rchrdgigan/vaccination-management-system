@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('title')
-Create | Children
+Create | Vaccines
 @endsection
 @section('breadcrumbs')
-Children > Create
+Vaccines > Create
 @endsection
 @section('content')
 <div class="intro-y block sm:flex items-center h-10 mt-6">
     <h2 class="text-lg font-medium truncate mr-5">
-        Create Children
+        Create Vaccines
     </h2>
 </div>
 <div class="grid grid-cols-12 gap-6 mt-5">
@@ -20,6 +20,9 @@ Children > Create
             <div  class="mt-3">
                 <label>Name of Vaccines</label>
                 <input type="text" class="input w-full border mt-2" placeholder="Please insert the name of the vaccine" name="vaccines_name">
+                @if(session('error'))
+                    <div class="text-theme-6 mt-2">{{session('error')}}</div>
+                @endif
                 @error('vaccines_name')
                     <div class="text-theme-6 mt-2">{{$message}}</div>
                 @enderror
