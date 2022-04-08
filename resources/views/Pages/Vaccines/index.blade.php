@@ -35,14 +35,10 @@ Vaccines
                 @foreach ($vaccines as $data)
                 <tr class="intro-x">
                     <td class="w-40">
-                        <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$data->vaccines_name}}</p>
-                        </div>
+                        <p class="text-center font-medium whitespace-no-wrap">{{$data->vaccines_name}}</p>
                     </td>
                     <td class="w-40">
-                        <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$data->has_dose}}</p>
-                        </div>
+                        <p class="text-center font-medium whitespace-no-wrap">{{$data->has_dose}}</p>
                     </td>
                     <td class="table-report__action w-56">
                         <div class="flex justify-center items-center">
