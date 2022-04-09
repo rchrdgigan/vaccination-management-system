@@ -13,7 +13,7 @@ Children
     <x-success/>
 
     <div class="intro-y block sm:flex items-center h-10">
-        <h2 class="text-lg font-medium truncate mr-5">
+        <h2 class="text-lg font-small truncate mr-5">
             Children List
         </h2>
         <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
@@ -34,7 +34,7 @@ Children
                     <th class="text-center whitespace-no-wrap">GENDER</th>
                     <th class="text-center whitespace-no-wrap">BIRTH HEIGHT</th>
                     <th class="text-center whitespace-no-wrap">BIRTH WEIGHT</th>
-                    <th class="text-center whitespace-no-wrap">BARANGAY</th>
+                    <th class="text-center whitespace-no-wrap">ADDRESS</th>
                     <th class="text-center whitespace-no-wrap">ACTION</th>
                 </tr>
             </thead>
@@ -43,53 +43,53 @@ Children
                 <tr class="intro-x">
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$child->childs_name}}</p>
+                            <p class="font-small text-center">{{$child->childs_name}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$child->mothers_name}}</p>
+                            <p class="font-small  text-center">{{$child->mothers_name}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$child->fathers_name}}</p>
+                            <p class="font-small text-center">{{$child->fathers_name}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$child->date_of_birth}}</p>
+                            <p class="font-small text-center">{{$child->date_of_birth}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$child->place_of_birth}}</p>
+                            <p class="font-small   text-center">{{$child->place_of_birth}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$child->date_of_registration}}</p>
+                            <p class="font-small  text-center">{{$child->date_of_registration}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$child->gender}}</p>
+                            <p class="font-small  text-center">{{$child->gender}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$child->birth_height}}</p>
+                            <p class="font-small  text-center">{{$child->birth_height}}</p>
                         </div>
                     </td>
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$child->birth_weight}}</p>
+                            <p class="font-small  text-center">{{$child->birth_weight}}</p>
                         </div>
                     </td>
 
                     <td class="w-40">
                         <div class="flex">
-                            <p class="font-medium whitespace-no-wrap">{{$child->barangay->barangay_name}}</p>
+                            <p class="font-small text-center">{{$child->address}}</p>
                         </div>
                     </td>
                     <td class="table-report__action w-56">

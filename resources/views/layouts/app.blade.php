@@ -46,7 +46,7 @@
                         icon: 'success',
                         title: 'Successfully Deleted',
                         showConfirmButton: false,
-                        timer: 1000
+                        timer: 2000
                     })
                 }
             });

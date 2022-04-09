@@ -40,19 +40,25 @@ Children > Create
             <div class="mt-3">
                 <label>Place of Birth</label>
                 <div class="relative mt-2">
-                    <input name="birth_place"type="text" class="input pr-16 w-full border col-span-4" placeholder="Price">
+                    <input name="birth_place"type="text" class="input pr-16 w-full border col-span-4" placeholder="Barangay-Municipality-Province">
                 </div>
             </div>
             <div class="mt-3">
                 <label>Birth Height</label>
                 <div class="relative mt-2">
-                    <input name="height"type="number" class="input pr-16 w-full border col-span-4" placeholder="Price">
+                    <input name="height"type="number" class="input pr-16 w-full border col-span-4" placeholder="in cm">
                 </div>
             </div>
             <div class="mt-3">
                 <label>Birth Weight</label>
                 <div class="relative mt-2">
-                    <input name="weight"type="number" class="input pr-16 w-full border col-span-4" placeholder="Price">
+                    <input name="weight"type="number" class="input pr-16 w-full border col-span-4" placeholder="in kg">
+                </div>
+            </div>
+            <div class="mt-3">
+                <label>Address</label>
+                <div class="relative mt-2">
+                    <input name="address" type="text" class="input pr-16 w-full border col-span-4" placeholder="Purok/Street Barangay">
                 </div>
             </div>
               <div class="mt-3">
@@ -74,7 +80,6 @@ Children > Create
                     </select>
                 </div>
             </div>
-
             <div class="text-right mt-5">
                 <button type="button" class="button w-24 border dark:border-dark-5 text-gray-700 dark:text-gray-300 mr-1">Cancel</button>
                 <button type="submit" class="button w-24 bg-theme-1 text-white">Save</button>
