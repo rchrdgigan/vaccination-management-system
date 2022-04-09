@@ -32,6 +32,8 @@ class ChildrenController extends Controller
             'gender' => $validated['gender'],
             'mothers_name' => $validated['mother_name'],
             'fathers_name' => $validated['father_name'],
+            'address' => $validated['address'],
+
             'birth_height' => $validated['height'],
             'birth_weight' => $validated['weight'],
             'barangay_id' => $validated['brgy_id'],
@@ -46,6 +48,7 @@ class ChildrenController extends Controller
 
     public function update(Child $child, StoreRequest $request){
         $validated = $request->validated();
+        dd($validated);
         $reg_date = Carbon::parse($validated['reg_date']);
         $birth_date = Carbon::parse($validated['birth_date']);
         $child->update([
@@ -58,6 +61,7 @@ class ChildrenController extends Controller
             'fathers_name' => $validated['father_name'],
             'birth_height' => $validated['height'],
             'birth_weight' => $validated['weight'],
+            'address' => $validated['address'],
             'barangay_id' => $validated['brgy_id'],
         ]);
         return redirect()->route('children.index')->withSuccess('Children has been updated');

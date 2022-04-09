@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('fathers_name');
             $table->double('birth_height');
             $table->double('birth_weight');
+            $table->string('address');
             $table->timestamps();
 
             $table->foreignId('barangay_id')->nullable()->constrained()->cascadeOnDelete();

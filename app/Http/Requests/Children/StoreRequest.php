@@ -34,6 +34,7 @@ class StoreRequest extends FormRequest
             'height' => ['required'],
             'brgy_id' => ['required', 'exists:barangays,id'],
             'gender' => ['required'],
+            'address' => ['required'],
         ];
     }
 }
