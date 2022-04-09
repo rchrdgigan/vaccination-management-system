@@ -28,6 +28,13 @@ Vaccines > Create
                 @enderror
             </div>
             <div  class="mt-3">
+                <label>Brand/Manufacturer of Vaccines</label>
+                <input type="text" class="input w-full border mt-2" placeholder="Please insert the brand of the vaccine" name="brand_name">
+                @error('brand_name')
+                    <div class="text-theme-6 mt-2">{{$message}}</div>
+                @enderror
+            </div>
+            <div  class="mt-3">
                 <label for="">Has dose?</label>
                 <div class="relative mt-2" >
                     <select class="input w-full  border mr-2" name="has_dose">

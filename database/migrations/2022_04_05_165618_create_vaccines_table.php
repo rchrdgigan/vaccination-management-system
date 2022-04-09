@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('barangay_id');
             $table->string('vaccines_name');
+            $table->string('brand_name');
             $table->string('has_dose');
             $table->timestamps();
 

@@ -25,6 +25,7 @@ class VaccinesController extends Controller
             Vaccine::create([
                 'barangay_id' => auth()->user()->barangay_id,
                 'vaccines_name' => $validated['vaccines_name'],
+                'brand_name' => $validated['brand_name'],
                 'has_dose' => $validated['has_dose'],
             ]);
             return redirect()->route('vaccines.index')->withSuccess('Vaccines has been created');

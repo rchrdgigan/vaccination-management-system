@@ -21,10 +21,18 @@ Vaccines > Edit
             <div  class="mt-3">
                 <label>Name of Vaccines</label>
                 <input type="text" class="input w-full border mt-2" value="{{$vaccine->vaccines_name}}" placeholder="Please insert the name of the vaccine" name="vaccines_name">
+                @error('vaccines_name')
+                    <div class="text-theme-6 mt-2">{{$message}}</div>
+                @enderror
             </div>
-            @error('vaccines_name')
-                <div class="text-theme-6 mt-2">{{$message}}</div>
-            @enderror
+           
+            <div  class="mt-3">
+                <label>Brand of Vaccines</label>
+                <input type="text" class="input w-full border mt-2" placeholder="Please insert the brand of the vaccine" value="{{$vaccine->brand_name}}" name="brand_name">
+                @error('brand_name')
+                    <div class="text-theme-6 mt-2">{{$message}}</div>
+                @enderror
+            </div>
             <div  class="mt-3">
                 <label for="">Has dose?</label>
                 <div class="relative mt-2" >
