@@ -25,6 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'vaccines_name' => ['required'],
+            'brand_name' => ['required'],
             'has_dose' => ['required'],
         ];
     }

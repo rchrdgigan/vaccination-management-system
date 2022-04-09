@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{ChildrenController,VaccinesController};
+use App\Http\Controllers\{ChildrenController,VaccinesController,VaccinesExportController};
 use App\Models\Barangay;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +39,8 @@ Route::middleware('auth')->group(function(){
             Route::get('/edit/{vaccine}', 'edit')->name('edit');
             Route::put('/update/{vaccine}', 'update')->name('update');
         });
+
+    Route::get('/vaccines/export', [VaccinesExportController::class, 'export'])->name('vaccines.export');
 
 
 });
