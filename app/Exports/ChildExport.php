@@ -9,8 +9,8 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
-
-class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEvents
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEvents, ShouldAutoSize
 {
 
     use Exportable;
@@ -45,7 +45,7 @@ class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEven
     public function registerEvents(): array{
         return[
                 AfterSheet::class => function( AfterSheet $event){
-                    $event->sheet->getStyle('A1:D1')->applyFromArray([
+                    $event->sheet->getStyle('A1:K1')->applyFromArray([
                         'font' => [
                             'bold'=>true
                         ],
