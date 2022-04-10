@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\WithEvents;
 
 class VaccinesExport implements 
@@ -34,9 +35,9 @@ class VaccinesExport implements
 
     public function headings(): array {
         return [
-            'Name of Vaccine',
-            'Brand of Vaccine',
-            'Vaccine Dose',
+            'Vaccine',
+            'Brand',
+            'Dose',
             'Created At',
         ];
     }
