@@ -11,14 +11,13 @@ Children
 @section('content')
 <div class="col-span-12 mt-6">
     <x-success/>
-
     <div class="intro-y block sm:flex items-center h-10">
         <h2 class="text-lg font-small truncate mr-5">
             Children List
         </h2>
         <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
             <a href="{{route('children.create')}}" class="button text-white bg-theme-1 shadow-md mr-2"> Add Children </a>
-            <button class="button px-2 mr-1 bg-theme-1 text-white"> <span class="w-5 h-5 flex items-center justify-center"> <i data-feather="file-text" class="w-4 h-4"></i> </span> </button>
+            @livewire('children.child-export')
         </div>
     </div>
     <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
