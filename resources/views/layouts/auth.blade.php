@@ -29,8 +29,8 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!-- BEGIN: Login Info -->
                 <div class="hidden xl:flex flex-col min-h-screen">
                     <a href="" class="-intro-x flex items-center pt-5">
-                        <img alt="Midone Tailwind HTML Admin Template" class="w-6" src="{{asset('assets/images/logo.svg')}}">
-                        <span class="text-white text-lg ml-3"> Mid<span class="font-medium">One</span> </span>
+                        <img alt="Midone Tailwind HTML Admin Template" class="w-12" src="{{asset('images/vaccine_logo.png')}}">
+                        <span class="text-white text-lg ml-3">Vaccination Management System
                     </a>
                     <div class="my-auto">
                         <img alt="Midone Tailwind HTML Admin Template" class="-intro-x w-1/2 -mt-16" src="{{asset('assets/images/illustration.svg')}}">
