@@ -10,8 +10,10 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
-class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEvents, ShouldAutoSize
+use Maatwebsite\Excel\Concerns\WithTitle;
+class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEvents, ShouldAutoSize, WithTitle
 {
+
 
     use Exportable;
     /**
@@ -37,21 +39,32 @@ class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEven
             $child->address,
         ];
     }
-
     public function headings():array{
         return["id", "Childs Name", "Mothers Name", 'Fathers Name','Birth Day', 'Place of Birth', 'Gender', 'Date of Registration', 'Birth Height', 'Birth Weight', 'Address' ];
     }
-
     public function registerEvents(): array{
+
         return[
+
                 AfterSheet::class => function( AfterSheet $event){
                     $event->sheet->getStyle('A1:K1')->applyFromArray([
                         'font' => [
                             'bold'=>true
                         ],
-                        ]);
-                }
+                        ])
+                        ->getAlignment()
+                        ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                    $count = count($this->collection());
+                    for($i = 1; $i<=$count; $i++){
+                        $j = 1;
+                        $event->sheet->getStyle('A'.$j+$i.':K'.$j+$i)
+                        ->getAlignment()
+                        ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                    }
+                },
             ];
-
+    }
+    public function title(): string{
+        return 'Children List';
     }
 }
