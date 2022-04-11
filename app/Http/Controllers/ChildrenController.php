@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class ChildrenController extends Controller
 {
     public function index(){
-        $childrens = Child::where('barangay_id', auth()->user()->barangay_id)->paginate(10);
+        $childrens = Child::search(request('search'))->where('barangay_id', auth()->user()->barangay_id)->paginate(10);
         return view('Pages.Children.index', compact('childrens'));
     }
 

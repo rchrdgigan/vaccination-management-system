@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Laravel\Scout\Searchable;
 class Child extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     // protected $fillable = [
     //     'barangay_id',
@@ -31,5 +31,11 @@ class Child extends Model
     public function child_vaccine()
     {
         return $this->hasMany(ChildVaccine::class);
+    }
+
+    public function toSearchableArray(){
+        return [
+            'childs_name' => $this->childs_name
+        ];
     }
 }
