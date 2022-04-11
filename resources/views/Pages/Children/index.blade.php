@@ -15,6 +15,15 @@ Children
         <h2 class="text-lg font-small truncate mr-5">
             Children List
         </h2>
+        <form method="GET">
+            <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0 align-self-center flex">
+                <div class="w-56 relative text-gray-700 dark:text-gray-300">
+                    <input type="search" class="input w-56 box pr-10 placeholder-theme-13" placeholder="Search Children's Name..." name="search"  >
+                    <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
+                </div>
+                <button class="button text-white bg-theme-1 shadow-md mx-2" type="submit">Go</button>
+            </div>
+        </form>
         <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
             <a href="{{route('children.create')}}" class="button text-white bg-theme-1 shadow-md mr-2"> Add Children </a>
             @livewire('children.child-export')
