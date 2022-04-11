@@ -39,9 +39,9 @@ Vaccines > Create
                 <div class="relative mt-2" >
                     <select class="input w-full  border mr-2" name="has_dose">
                         <option value="">--- Select Dose ---</option>
-                        <option value="1st-dose">1st dose</option>
-                        <option value="2nd-dose">2nd dose</option>
-                        <option value="3rd-dose">3rd dose</option>
+                        @for($x = 1; $x <= 10; $x++)
+                            <option value="{{$x}}">{{$x}} dose</option>
+                        @endfor
                     </select>
                 </div>
                 @error('has_dose')

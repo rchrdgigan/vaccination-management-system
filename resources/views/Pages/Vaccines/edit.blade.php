@@ -37,9 +37,9 @@ Vaccines > Edit
                 <label for="">Has dose?</label>
                 <div class="relative mt-2" >
                     <select class="input w-full  border mr-2" name="has_dose">
-                        <option {{($vaccine->has_dose == '1st-dose') ? 'selected' : ''}} value="1st-dose">1st dose</option>
-                        <option {{($vaccine->has_dose == '2nd-dose') ? 'selected' : ''}} value="2nd-dose">2nd dose</option>
-                        <option {{($vaccine->has_dose == '3rd-dose') ? 'selected' : ''}} value="3rd-dose">3rd dose</option>
+                        @for ($x = 1; $x <= 10; $x++)
+                        <option {{($vaccine->has_dose == $x) ? 'selected' : ''}} value="{{$x}}">{{$x}} dose</option>
+                        @endfor
                     </select>
                 </div>
             </div>

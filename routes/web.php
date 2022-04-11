@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{ChildrenController,VaccinesController,VaccinesExportController};
+use App\Http\Controllers\{ChildrenController,VaccinesController,VaccinesExportController, VaccinesImportController};
 use App\Models\Barangay;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function(){
             Route::get('/edit/{child}', 'edit')->name('edit');
             Route::put('/update/{child}', 'update')->name('update');
         });
-    //children
+    //vaccines
     Route::controller(VaccinesController::class)
         ->as('vaccines.')
         ->prefix('vaccines')
@@ -40,9 +40,7 @@ Route::middleware('auth')->group(function(){
             Route::put('/update/{vaccine}', 'update')->name('update');
         });
 
-    Route::get('/vaccines/export', [VaccinesExportController::class, 'export'])->name('vaccines.export');
-
-
+    Route::post('/vaccines/import', [VaccinesImportController::class, 'store'])->name('vaccines.import');
 });
 Auth::routes();
 

@@ -1,7 +1,7 @@
  <nav class="side-nav">
                 <a href="" class="intro-x flex items-center pl-5 pt-4">
-                    <img alt="Midone Tailwind HTML Admin Template" class="w-6" src="{{asset('assets/images/logo.svg')}}">
-                    <span class="hidden xl:block text-white text-lg ml-3"> Mid<span class="font-medium">one</span> </span>
+                    <img class="w-20" src="{{asset('images/vaccine_logo.png')}}">
+                    <span class="hidden xl:block text-white text-lg ml-3">VMS</span>
                 </a>
                 <div class="side-nav__devider my-6"></div>
                 <ul>

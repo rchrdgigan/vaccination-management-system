@@ -11,13 +11,12 @@ use Illuminate\Http\Request;
 class ChildrenController extends Controller
 {
     public function index(){
-        $childrens = Child::paginate(10);
+        $childrens = Child::where('barangay_id', auth()->user()->barangay_id)->paginate(10);
         return view('Pages.Children.index', compact('childrens'));
     }
 
     public function create(){
-        $barangays = Barangay::get();
-        return view('Pages.Children.create', compact('barangays'));
+        return view('Pages.Children.create');
     }
 
     public function store(StoreRequest $request){
@@ -36,19 +35,17 @@ class ChildrenController extends Controller
 
             'birth_height' => $validated['height'],
             'birth_weight' => $validated['weight'],
-            'barangay_id' => $validated['brgy_id'],
+            'barangay_id' => auth()->user()->barangay_id,
         ]);
         return redirect()->route('children.index')->withSuccess('Children has been created');
     }
 
     public function edit(Child $child){
-        $barangays = Barangay::get();
-        return view('Pages.Children.edit', compact('barangays', 'child'));
+        return view('Pages.Children.edit', compact('child'));
     }
 
     public function update(Child $child, StoreRequest $request){
         $validated = $request->validated();
-        dd($validated);
         $reg_date = Carbon::parse($validated['reg_date']);
         $birth_date = Carbon::parse($validated['birth_date']);
         $child->update([
@@ -62,9 +59,8 @@ class ChildrenController extends Controller
             'birth_height' => $validated['height'],
             'birth_weight' => $validated['weight'],
             'address' => $validated['address'],
-            'barangay_id' => $validated['brgy_id'],
+            'barangay_id' => auth()->user()->barangay_id,
         ]);
         return redirect()->route('children.index')->withSuccess('Children has been updated');
-
     }
 }

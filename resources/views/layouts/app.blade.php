@@ -4,7 +4,7 @@
     <!-- BEGIN: Head -->
     <head>
         <meta charset="utf-8">
-        <link href="assets/images/logo.svg" rel="shortcut icon">
+        <link href="images/vaccine_logo.png" rel="shortcut icon">
 
         <title>@yield('title')</title>
         @stack('links')
