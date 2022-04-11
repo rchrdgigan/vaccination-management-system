@@ -21,12 +21,11 @@ class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEven
     */
     public function collection()
     {
-        return Child::all();
+        return Child::where('barangay_id', auth()->user()->barangay_id)->get();
     }
 
     public function map($child):array{
         return[
-            $child->id,
             $child->childs_name,
             $child->mothers_name,
             $child->fathers_name,
@@ -40,7 +39,7 @@ class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEven
         ];
     }
     public function headings():array{
-        return["id", "Childs Name", "Mothers Name", 'Fathers Name','Birth Day', 'Place of Birth', 'Gender', 'Date of Registration', 'Birth Height', 'Birth Weight', 'Address' ];
+        return["Childs Name", "Mothers Name", 'Fathers Name','Birth Day', 'Place of Birth', 'Gender', 'Date of Registration', 'Birth Height', 'Birth Weight', 'Address' ];
     }
     public function registerEvents(): array{
 
