@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{ChildrenController,VaccinesController,VaccinesExportController, VaccinesImportController};
+use App\Http\Controllers\{ChildImportController, ChildrenController,VaccinesController,VaccinesExportController, VaccinesImportController};
 use App\Models\Barangay;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function(){
         });
 
     Route::post('/vaccines/import', [VaccinesImportController::class, 'store'])->name('vaccines.import');
+    Route::post('/child/import', [ChildImportController::class, 'store'])->name('child.import');
 });
 Auth::routes();
 
