@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{ChildImportController, ChildrenController,VaccinesController,VaccinesExportController, VaccinesImportController};
+use App\Http\Controllers\{ChildImportController, ChildrenController,VaccinesController,VaccinesExportController, VaccinesImportController,ChildVaccinesController};
 use App\Models\Barangay;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +38,19 @@ Route::middleware('auth')->group(function(){
             Route::post('/store', 'store')->name('store');
             Route::get('/edit/{vaccine}', 'edit')->name('edit');
             Route::put('/update/{vaccine}', 'update')->name('update');
+        });
+    //childvaccines
+    Route::controller(ChildVaccinesController::class)
+        ->as('child-vaccines.')
+        ->prefix('child-vaccines')
+        ->group(function(){
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/store', 'store')->name('store');
+            Route::get('/edit/{child_id}', 'edit')->name('edit');
+            Route::put('/update/{childvaccines}', 'update')->name('update');
+            Route::get('/remove/{childvaccines}', 'remove')->name('remove');
+            Route::get('/destroy/{childvaccines}', 'destroy')->name('destroy');
         });
 
     Route::post('/vaccines/import', [VaccinesImportController::class, 'store'])->name('vaccines.import');

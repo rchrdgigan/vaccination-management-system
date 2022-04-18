@@ -37,7 +37,7 @@ Vaccines > Edit
                 <label for="">Has dose?</label>
                 <div class="relative mt-2" >
                     <select class="input w-full  border mr-2" name="has_dose">
-                        @for ($x = 1; $x <= 10; $x++)
+                        @for ($x = 1; $x <= 3; $x++)
                         <option {{($vaccine->has_dose == $x) ? 'selected' : ''}} value="{{$x}}">{{$x}} dose</option>
                         @endfor
                     </select>

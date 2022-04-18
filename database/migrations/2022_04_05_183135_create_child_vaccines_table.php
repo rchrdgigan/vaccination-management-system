@@ -17,14 +17,15 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('child_id');
             $table->unsignedBigInteger('vaccine_id');
-            $table->dateTime('inj_1st_date');
-            $table->dateTime('inj_2nd_date');
-            $table->dateTime('inj_3rd_date');
+            $table->dateTime('inj_1st_date')->nullable();
+            $table->dateTime('inj_2nd_date')->nullable();
+            $table->dateTime('inj_3rd_date')->nullable();
             $table->text('has_inj_1st_dose')->default(0);
             $table->text('has_inj_2nd_dose')->default(0);
             $table->text('has_inj_3rd_dose')->default(0);
+            $table->string('status')->default('Partial-Vaccinated');
             $table->timestamps();
-
+            $table->foreignId('barangay_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreign('child_id')->references('id')->on('children')->onDelete('cascade');
             $table->foreign('vaccine_id')->references('id')->on('vaccines')->onDelete('cascade');
         });

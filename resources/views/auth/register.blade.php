@@ -1,4 +1,7 @@
 @extends('layouts.auth')
+@section('title')
+Register Account
+@endsection
 
 @section('content')
 {{-- <div class="container">
