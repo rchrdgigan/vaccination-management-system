@@ -13,11 +13,11 @@ class ChildVaccine extends Model
         'child_id',
         'vaccine_id',
         'inj_1st_date',
-        'inj_2st_date',
-        'inj_3st_date',
+        'inj_2nd_date',
+        'inj_3rd_date',
         'has_inj_1st_dose',
-        'has_inj_2st_dose',
-        'has_inj_3st_dose',
+        'has_inj_2nd_dose',
+        'has_inj_3rd_dose',
     ];
 
     public function vaccine()

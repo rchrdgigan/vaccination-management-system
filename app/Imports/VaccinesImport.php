@@ -54,10 +54,9 @@ class VaccinesImport implements
     public function rules(): array
     {
         return [
-            '*.vaccine_name' => ['vaccine', 'unique:vaccines']
+            '*.vaccines_name' => ['vaccine', 'unique:vaccines']
         ];
     }
-
 
     public function chunkSize(): int
     {

@@ -24,9 +24,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="" class="side-menu">
+                        <a href="{{route('child-vaccines.index')}}" class="side-menu {{!request()->routeIs('child-vaccines.*') ?: 'side-menu--active'}}">
                             <div class="side-menu__icon"> <i data-feather="user"></i> </div>
-                            <div class="side-menu__title"> Child Vaccination </div>
+                            <div class="side-menu__title"> Children Vaccination </div>
                         </a>
                     </li>
                 </ul>

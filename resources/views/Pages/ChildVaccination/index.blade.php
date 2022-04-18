@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title')
-Vaccines
+Vaccinated Children
 @endsection
 @section('breadcrumbs')
-Vaccines
+Vaccinated Children
 @endsection
 @push('links')
 
@@ -14,10 +14,10 @@ Vaccines
 
     <div class="intro-y block sm:flex items-center h-10">
         <h2 class="text-lg font-medium truncate mr-5">
-            Vaccines Data
+            Vaccinated Children List
         </h2>
         <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
-            <a href="{{route('vaccines.create')}}" class="button text-white bg-theme-1 shadow-md mr-2"> Add Vaccines </a>
+            <a href="{{route('child-vaccines.create')}}" class="button text-white bg-theme-1 shadow-md mr-2"> Add Vaccinated Child </a>
             @livewire('vaccines.vaccines-export')
 
             <a  href="javascript:;" data-toggle="modal" data-target="#basic-modal-preview" class="ml-2 flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"><span class="w-5 h-5 flex items-center justify-center"> <i data-feather="file-text" class="w-4 h-4"></i> </span> Import </a>
@@ -27,7 +27,7 @@ Vaccines
                 <div class="modal__content">
                     <div class="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200 dark:border-dark-5">
                         <h2 class="font-medium text-base mr-auto">
-                            Import Vaccine File
+                            Import Vaccinated Children List
                         </h2>
                         <div class="dropdown sm:hidden">
                             <a class="dropdown-toggle w-5 h-5 block" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal w-5 h-5 text-gray-700 dark:text-gray-600"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg> </a>
@@ -79,24 +79,42 @@ Vaccines
                 @endforeach
             </div>
         @endif
-        @foreach ($vaccines as $data)
-        <div class="col-span-12 sm:col-span-4 xxl:col-span-3 box p-5 cursor-pointer zoom-in">
-            <div class="font-medium text-base">{{$data->vaccines_name}}</div>
-            <div class="text-gray-600">{{$data->brand_name}}</div>
-            <div class="text-gray-600">{{$data->has_dose}} - dose</div>
-            <div class="absolute top-0 right-0 mr-2 mt-2 dropdown ml-auto">
-                <a class="dropdown-toggle w-5 h-5 block" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical w-5 h-5 text-gray-500"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg> </a>
-                <div class="dropdown-box w-40" id="_f7cx5pv5u" data-popper-placement="bottom-end" style="position: absolute; inset: 0px auto auto 0px; transform: translate(-140px, 20px);">
-                    <div class="dropdown-box__content box dark:bg-dark-1 p-2">
-                        <a href="{{route('vaccines.edit', $data->id)}}" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i>  Edit </a>
-                        @livewire('vaccines.delete-vaccines', ['vaccine' => $data], key($data->id))
+          
+        <!-- Vaccinated Children List -->
+        @foreach($child_vaccines as $data)
+        <div class="intro-y col-span-12 md:col-span-3">
+            <div class="box">
+                <div class="flex flex-col lg:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
+                    <div class="w-24 h-24 lg:w-12 lg:h-12 image-fit lg:mr-1">
+                        @if($data->gender == 'Male')
+                        <img class="rounded-full" src="images/son.png">
+                        @else
+                        <img class="rounded-full" src="images/daughter.png">
+                        @endif
                     </div>
+                    <div class="lg:ml-2 lg:mr-auto text-center lg:text-left mt-3 lg:mt-0">
+                        <a href="" class="font-medium">{{$data->childs_name}}</a> 
+                        <div class="text-gray-600 text-xs">Mother : {{$data->mothers_name}}</div>
+                        <div class="text-gray-600 text-xs">Father : {{$data->fathers_name}}</div>
+                        <div class="text-gray-600 text-xs">Date of Birth : {{Carbon\Carbon::parse($data->date_of_birth)->format('M d, Y')}}</div>
+                    </div>
+                    <div class="absolute top-0 right-0 mr-2 mt-2 dropdown ml-auto">
+                        <a class="dropdown-toggle w-5 h-5 block" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical w-5 h-5 text-gray-500"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg> </a>
+                        <div class="dropdown-box w-40" id="_f7cx5pv5u" data-popper-placement="bottom-end" style="position: absolute; inset: 0px auto auto 0px; transform: translate(-140px, 20px);">
+                            <div class="dropdown-box__content box dark:bg-dark-1 p-2">
+                                <a href="{{route('child-vaccines.edit', $data->child_id)}}" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i>  Edit Vaccine</a>
+                                <a href="{{route('child-vaccines.destroy',$data->child_id)}}" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="trash" class="w-4 h-4 mr-1"></i>  Delete Record</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap lg:flex-no-wrap p-5">
+                    <button class="button button--sm text-white bg-theme-1 mr-2">Vaccine Status</button>
                 </div>
             </div>
         </div>
-        @endforeach                
+        @endforeach
     </div>
-    
     
 </div>
 @endsection
