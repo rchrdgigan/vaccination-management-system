@@ -16,6 +16,47 @@ Vaccinated Children
         <h2 class="text-lg font-medium truncate mr-5">
             Vaccinated Children List
         </h2>
+        <!-- BEGIN:Filter -->
+        <div class="intro-y flex flex-col-reverse sm:flex-row items-center">
+            <div class="w-full sm:w-auto relative mr-auto mt-3 sm:mt-0">
+                <i class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0 z-10 text-gray-700 dark:text-gray-300" data-feather="search"></i> 
+                <input type="text" class="input w-full sm:w-64 box px-10 text-gray-700 dark:text-gray-300 placeholder-theme-13" placeholder="Search Child Name">
+                <div class="inbox-filter dropdown absolute inset-y-0 mr-3 right-0 flex items-center" data-placement="bottom-start">
+                    <i class="dropdown-toggle w-4 h-4 cursor-pointer text-gray-700 dark:text-gray-300" data-feather="chevron-down"></i> 
+                    <div class="inbox-filter__dropdown-box dropdown-box pt-2">
+                        <div class="dropdown-box__content box p-5">
+                            <div class="grid grid-cols-12 gap-4 row-gap-3">
+                                <div class="col-span-6">
+                                    <div class="text-xs">Date From</div>
+                                    <input type="datetime-local" class="input w-full border mt-2 flex-1">
+                                </div>
+                                <div class="col-span-6">
+                                    <div class="text-xs">Date To</div>
+                                    <input type="datetime-local" class="input w-full border mt-2 flex-1">
+                                </div>
+                                <div class="col-span-6">
+                                    <div class="text-xs">Vaccine Name</div>
+                                    <input type="text" class="input w-full border mt-2 flex-1" placeholder="Vaccine">
+                                </div>
+                                <div class="col-span-6">
+                                    <div class="text-xs">Dose</div>
+                                        <select class="input w-full border mt-2 flex-1" name="has_dose">
+                                            @for ($x = 1; $x <= 3; $x++)
+                                            <option {{($vaccine->has_dose == $x) ? 'selected' : ''}} value="{{$x}}">{{$x}} dose</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                <div class="col-span-12 flex items-center mt-3">
+                                    <button class="button w-32 justify-center block bg-theme-1 text-white ml-2">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END:Filter -->
+       
         <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
             <a href="{{route('child-vaccines.create')}}" class="button text-white bg-theme-1 shadow-md mr-2"> Add Vaccinated Child </a>
             @livewire('vaccines.vaccines-export')
@@ -109,7 +150,7 @@ Vaccinated Children
                     </div>
                 </div>
                 <div class="flex flex-wrap lg:flex-no-wrap p-5">
-                    <button class="button button--sm text-white bg-theme-1 mr-2">Vaccine Status</button>
+                    <a href="{{route('child-vaccines.show', $data->child_id)}}" class="button button--sm text-white bg-theme-34 mr-2">Vaccine Status</a>
                 </div>
             </div>
         </div>
