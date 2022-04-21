@@ -12,7 +12,8 @@ use Carbon\Carbon;
 
 class ChildVaccinesController extends Controller
 {
-    public function index(){
+    public function index(Vaccine $vaccine){
+        
         $child_vaccines = ChildVaccine::join('children', 'children.id', '=', 'child_vaccines.child_id')
         ->select(
             'children.id as child_id',
@@ -25,7 +26,7 @@ class ChildVaccinesController extends Controller
         ->groupBy('children.id','children.childs_name', 'children.mothers_name', 'children.fathers_name', 'children.date_of_birth','children.gender')
         ->get();
         
-        return view('Pages.ChildVaccination.index',compact('child_vaccines'));
+        return view('Pages.ChildVaccination.index',compact('child_vaccines','vaccine'));
     }
 
     public function create(){
@@ -57,8 +58,8 @@ class ChildVaccinesController extends Controller
         return redirect()->route('child-vaccines.index')->withSuccess('Vaccines has been created');
     }
 
-    public function edit($child_id){
-        $child = Child::findOrFail($child_id);
+    public function edit($id){
+        $child = Child::findOrFail($id);
         $child_vaccines = ChildVaccine::where('child_id', $child->id)->join('vaccines', 'vaccines.id', '=', 'child_vaccines.vaccine_id')
         ->select(
             'child_vaccines.id as id',
@@ -80,53 +81,6 @@ class ChildVaccinesController extends Controller
     }
 
     public function update($child_vacc_id, ChildVaccine $child_vacc, UpdateRequest $request){
-         // if(count($validated['vaccine_id']) > 0){
-        //     foreach($validated['vaccine_id'] as $data_id){
-        //         $vaccines = Vaccine::findOrFail($data_id);
-        //         if(!isset($validated['inj_1st_date'])){
-        //             $validated['inj_1st_date'] = array(null);
-        //         }
-        //         if(!isset($validated['has_inj_1st_dose'])){
-        //             $validated['has_inj_1st_dose'] = array('0');
-        //         }
-        //         if(!isset($validated['inj_2nd_date'])){
-        //             $validated['inj_2nd_date'] = array(null);
-        //         }
-        //         if(!isset($validated['has_inj_2nd_dose'])){
-        //             $validated['has_inj_2nd_dose'] = array('0');
-        //         }
-        //         if(!isset($validated['inj_3rd_date'])){
-        //             $validated['inj_3rd_date'] = array(null);
-        //         }
-        //         if(!isset($validated['has_inj_3rd_dose'])){
-        //             $validated['has_inj_3rd_dose'] = array('0');
-        //         }
-
-        //         foreach($validated['inj_1st_date'] as $inj_1st_date){
-        //             foreach($validated['has_inj_1st_dose'] as $has_inj_1st_dose){
-        //                 foreach($validated['inj_2nd_date'] as $inj_2nd_date){
-        //                     foreach($validated['has_inj_2nd_dose'] as $has_inj_2nd_dose){
-        //                         foreach($validated['inj_3rd_date'] as $inj_3rd_date){
-        //                             foreach($validated['has_inj_3rd_dose'] as $has_inj_3rd_dose){
-        //                                 $child_vacc = ChildVaccine::where('vaccine_id', $vaccines->id)->where('child_id', $child)
-        //                                 ->update([
-        //                                     'vaccine_id' =>  $vaccines->id,
-        //                                     'child_id' => $child,
-        //                                     'inj_1st_date' => $inj_1st_date,
-        //                                     'has_inj_1st_dose' => $has_inj_1st_dose,
-        //                                     'inj_2nd_date' => $inj_2nd_date,
-        //                                     'has_inj_2nd_dose' => $has_inj_2nd_dose,
-        //                                     'inj_3rd_date' => $inj_3rd_date,
-        //                                     'has_inj_3rd_dose' => $has_inj_3rd_dose,
-        //                                 ]);
-        //                             }
-        //                         }
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
         
         $validated = $request->validated();
 
@@ -178,4 +132,25 @@ class ChildVaccinesController extends Controller
         return redirect()->route('child-vaccines.index')->withSuccess('Child Vaccination record has been deleted');
     }
 
+    public function show($id){
+        $child = Child::findOrFail($id);
+        $child_vaccines = ChildVaccine::where('child_id', $child->id)->join('vaccines', 'vaccines.id', '=', 'child_vaccines.vaccine_id')
+        ->select(
+            'child_vaccines.id as id',
+            'vaccines.id as vaccine_id',
+            'vaccines.vaccines_name as vaccines_name',
+            'vaccines.brand_name as brand_name',
+            'vaccines.has_dose as has_dose',
+            'child_vaccines.inj_1st_date as inj_1st_date',
+            'child_vaccines.has_inj_1st_dose as has_inj_1st_dose',
+            'child_vaccines.inj_2nd_date as inj_2nd_date',
+            'child_vaccines.has_inj_2nd_dose as has_inj_2nd_dose',
+            'child_vaccines.inj_3rd_date as inj_3rd_date',
+            'child_vaccines.has_inj_3rd_dose as has_inj_3rd_dose',
+        )
+        ->groupBy('child_vaccines.id','vaccines.id','vaccines.vaccines_name','vaccines.brand_name','vaccines.has_dose','child_vaccines.inj_1st_date','child_vaccines.has_inj_1st_dose','child_vaccines.inj_2nd_date','child_vaccines.has_inj_2nd_dose','child_vaccines.inj_3rd_date','child_vaccines.has_inj_3rd_dose')
+        ->get();
+        
+        return view('Pages.ChildVaccination.show',compact('child_vaccines', 'child'));
+    }
 }
