@@ -106,7 +106,7 @@ Vaccines > Edit
                                         </div>
                                         @else
                                         <div class="text-left mt-1 p-1">
-                                            <label class="text-white text-center rounded-md bg-theme-27 p-1 mt-1">Fully-Vaccinated</label>
+                                            <label class="text-white text-center rounded-md bg-theme-9 p-1 mt-1">Fully-Vaccinated</label>
                                         </div>
                                         @endif
                                     </div>
@@ -119,7 +119,8 @@ Vaccines > Edit
                                         </div>
                                     </div>
                                     <div class="text-right mt-3 p-3">
-                                        <button type="submit" class="button w-24 bg-theme-1 text-white">Update</button>
+                                        <a href="{{route('child-vaccines.show', $child->id)}}" class="button button--sm text-white bg-theme-34 mr-2">Vaccine Status</a>
+                                        <button type="submit" class="button button--sm text-white bg-theme-1 mt-2 mr-2">Update</button>
                                     </div>
                                 </form>
                             </div>
