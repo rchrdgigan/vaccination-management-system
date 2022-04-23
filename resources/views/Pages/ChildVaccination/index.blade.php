@@ -59,7 +59,7 @@ Vaccinated Children
        
         <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
             <a href="{{route('child-vaccines.create')}}" class="button text-white bg-theme-1 shadow-md mr-2"> Add Vaccinated Child </a>
-            @livewire('vaccines.vaccines-export')
+            @livewire('child-vaccines.child-vaccines-export')
 
             <a  href="javascript:;" data-toggle="modal" data-target="#basic-modal-preview" class="ml-2 flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"><span class="w-5 h-5 flex items-center justify-center"> <i data-feather="file-text" class="w-4 h-4"></i> </span> Import </a>
                         
