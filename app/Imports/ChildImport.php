@@ -42,7 +42,10 @@ WithEvents
     {
         foreach ($rows as $row)
         {
-            Child::create([
+            $children = Child::where('barangay_id', auth()->user()->barangay_id)
+            ->where('childs_name', $row['childs_name'])->count();
+            if($children == 0){
+                Child::create([
                     'barangay_id' => auth()->user()->barangay_id,
                     'childs_name' => $row['childs_name'],
                     'mothers_name' => $row['mothers_name'],
@@ -54,11 +57,17 @@ WithEvents
                     'birth_height' => $row['birth_height'],
                     'birth_weight' => $row['birth_weight'],
                     'address' => $row['address'],
-            ]);
+                ]);
+            }
         }
     }
 
-
+    public function rules(): array
+    {
+        return [
+            '*.childs_name' => ['childs_name', 'unique:children']
+        ];
+    }
 
 
     public function chunkSize(): int
