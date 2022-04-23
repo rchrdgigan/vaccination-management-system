@@ -44,7 +44,7 @@ class VaccinesImport implements
                 $vaccine = Vaccine::create([
                     'barangay_id' => auth()->user()->barangay_id,
                     'vaccines_name' => $row['vaccine'],
-                    'brand_name' => $row['brand'],
+                    'brand_name' => $row['description'],
                     'has_dose' => $row['dose'],
                 ]);
             }

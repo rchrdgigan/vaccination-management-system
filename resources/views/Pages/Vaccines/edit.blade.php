@@ -27,8 +27,8 @@ Vaccines > Edit
             </div>
            
             <div  class="mt-3">
-                <label>Brand of Vaccines</label>
-                <input type="text" class="input w-full border mt-2" placeholder="Please insert the brand of the vaccine" value="{{$vaccine->brand_name}}" name="brand_name">
+                <label>Description of Vaccines</label>
+                <input type="text" class="input w-full border mt-2" placeholder="Please insert the description of the vaccine" value="{{$vaccine->brand_name}}" name="brand_name">
                 @error('brand_name')
                     <div class="text-theme-6 mt-2">{{$message}}</div>
                 @enderror
