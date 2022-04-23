@@ -22,9 +22,10 @@ class ChildVaccinesController extends Controller
             'children.fathers_name as fathers_name',
             'children.date_of_birth as date_of_birth',
             'children.gender as gender',
+            'child_vaccines.barangay_id'
         )
-        ->groupBy('children.id','children.childs_name', 'children.mothers_name', 'children.fathers_name', 'children.date_of_birth','children.gender')
-        ->get();
+        ->groupBy('child_vaccines.barangay_id','children.id','children.childs_name', 'children.mothers_name', 'children.fathers_name', 'children.date_of_birth','children.gender')
+        ->where('child_vaccines.barangay_id',auth()->user()->barangay_id)->get();
         
         return view('Pages.ChildVaccination.index',compact('child_vaccines','vaccine'));
     }
