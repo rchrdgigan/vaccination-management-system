@@ -18,6 +18,7 @@ class ChildVaccine extends Model
         'has_inj_1st_dose',
         'has_inj_2nd_dose',
         'has_inj_3rd_dose',
+        'barangay_id'
     ];
 
     public function vaccine()

@@ -20,6 +20,8 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Events\AfterImport;
 use Maatwebsite\Excel\Validators\Failure;
+use DateTime;
+
 class ChildImport implements
 ToCollection,
 WithHeadingRow,
@@ -45,10 +47,10 @@ WithEvents
                     'childs_name' => $row['childs_name'],
                     'mothers_name' => $row['mothers_name'],
                     'fathers_name' => $row['fathers_name'],
-                    'date_of_birth' => $row['birth_day'],
+                    'date_of_birth' => (DateTime::createFromFormat('Y-m-d', $row['birth_day']) !== false) ? $row['birth_day'] : \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['birth_day']),
                     'place_of_birth' => $row['place_of_birth'],
                     'gender' => $row['gender'],
-                    'date_of_registration' => $row['date_of_registration'],
+                    'date_of_registration' => (DateTime::createFromFormat('Y-m-d', $row['date_of_registration']) !== false)? $row['date_of_registration'] : \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date_of_registration']),
                     'birth_height' => $row['birth_height'],
                     'birth_weight' => $row['birth_weight'],
                     'address' => $row['address'],

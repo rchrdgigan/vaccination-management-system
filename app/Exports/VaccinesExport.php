@@ -29,7 +29,6 @@ class VaccinesExport implements
             $vaccine->vaccines_name,
             $vaccine->brand_name,
             $vaccine->has_dose,
-            $vaccine->created_at,
         ];
     }
 
@@ -38,7 +37,6 @@ class VaccinesExport implements
             'Vaccine',
             'Brand',
             'Dose',
-            'Created At',
         ];
     }
 
