@@ -34,6 +34,7 @@ Vaccines > Edit
                             
                         </div>
                         <div class="p-5 border-t border-gray-200 dark:border-dark-5">
+                            <a class="flex items-center mt-5"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Family No. : {{$child->family_no}} </a>
                             <a class="flex items-center mt-5"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Mother : {{$child->mothers_name}} </a>
                             <a class="flex items-center mt-5"> <i data-feather="user" class="w-4 h-4 mr-2"></i> Father :  {{$child->fathers_name}} </a>
                             <a class="flex items-center mt-5"> <i data-feather="navigation" class="w-4 h-4 mr-2"></i> Address : {{$child->address}} </a>

@@ -26,6 +26,7 @@ class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEven
 
     public function map($child):array{
         return[
+            $child->family_no,
             $child->childs_name,
             $child->mothers_name,
             $child->fathers_name,
@@ -39,14 +40,14 @@ class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEven
         ];
     }
     public function headings():array{
-        return["Childs Name", "Mothers Name", 'Fathers Name','Birth Day', 'Place of Birth', 'Gender', 'Date of Registration', 'Birth Height', 'Birth Weight', 'Address' ];
+        return["Family No", "Childs Name", "Mothers Name", 'Fathers Name','Birth Day', 'Place of Birth', 'Gender', 'Date of Registration', 'Birth Height', 'Birth Weight', 'Address' ];
     }
     public function registerEvents(): array{
 
         return[
 
                 AfterSheet::class => function( AfterSheet $event){
-                    $event->sheet->getStyle('A1:K1')->applyFromArray([
+                    $event->sheet->getStyle('A1:L1')->applyFromArray([
                         'font' => [
                             'bold'=>true
                         ],
@@ -56,7 +57,7 @@ class ChildExport implements FromCollection, WithMapping, WithHeadings, WithEven
                     $count = count($this->collection());
                     for($i = 1; $i<=$count; $i++){
                         $j = 1;
-                        $event->sheet->getStyle('A'.$j+$i.':K'.$j+$i)
+                        $event->sheet->getStyle('A'.$j+$i.':L'.$j+$i)
                         ->getAlignment()
                         ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                     }

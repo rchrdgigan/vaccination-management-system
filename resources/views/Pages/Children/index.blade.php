@@ -80,11 +80,12 @@ Children
             </div>
         </div>
     </div>
-    <div class="intro-y overflow-auto lg:overflow-visible mt-8 sm:mt-0">
+    <div class="intro-y overflow-auto xxxl:overflow-visible mt-8 sm:mt-0">
         <table class="table table-report sm:mt-2">
             <thead>
                 <tr>
-                    <th class="text-center whitespace-no-wrap">CHILD'S Name</th>
+                    <th class="text-center whitespace-no-wrap">FAMILY'S NO.</th>
+                    <th class="text-center whitespace-no-wrap">CHILD'S NAME</th>
                     <th class="text-center whitespace-no-wrap">MOTHER'S NAME</th>
                     <th class="text-center whitespace-no-wrap">FATHER'S NAME</th>
                     <th class="text-center whitespace-no-wrap">DATE OF BIRTH</th>
@@ -100,6 +101,11 @@ Children
             <tbody>
                 @foreach ($childrens as $child)
                 <tr class="intro-x">
+                    <td class="w-40">
+                        <div class="flex">
+                            <p class="font-small text-center">{{$child->family_no}}</p>
+                        </div>
+                    </td>
                     <td class="w-40">
                         <div class="flex">
                             <p class="font-small text-center">{{$child->childs_name}}</p>

@@ -18,6 +18,13 @@ Children > Create
             @csrf
         <div class="intro-y box p-5">
             <div  class="mt-3">
+                <label>Family's Number</label>
+                <input type="text" class="input w-full border mt-2" placeholder="Please insert the Family number" name="family_no">
+                @error('family_no')
+                    <div class="text-theme-6 mt-2">{{$message}}</div>
+                @enderror
+            </div>
+            <div  class="mt-3">
                 <label>Child's Name</label>
                 <input type="text" class="input w-full border mt-2" placeholder="Please insert the Full name of the Child" name="child_name">
                 @error('child_name')

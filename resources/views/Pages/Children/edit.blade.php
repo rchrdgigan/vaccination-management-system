@@ -19,6 +19,13 @@ Edit
             @method('PUT')
         <div class="intro-y box p-5">
             <div  class="mt-3">
+                <label>Family's Number</label>
+                <input type="text" class="input w-full border mt-2" placeholder="Please insert the Family number" name="family_no" value="{{$child->family_no}}">
+                @error('family_no')
+                    <div class="text-theme-6 mt-2">{{$message}}</div>
+                @enderror
+            </div>
+            <div  class="mt-3">
                 <label>Child's Name</label>
                 <input type="text" class="input w-full border mt-2" placeholder="Please insert the Full name of the Child" name="child_name" value="{{$child->childs_name}}">
                 @error('child_name')
@@ -66,6 +73,7 @@ Edit
                 <label>Birth Height</label>
                 <div class="relative mt-2">
                     <input name="height" type="text" onkeypress="return validate();" class="input pr-16 w-full border col-span-4" placeholder="Birth Height" value="{{$child->birth_height}}">
+                    <p id="height_err" class="text-theme-6 mt-2"></p>
                 </div>
                 @error('height')
                     <div class="text-theme-6 mt-2">{{$message}}</div>

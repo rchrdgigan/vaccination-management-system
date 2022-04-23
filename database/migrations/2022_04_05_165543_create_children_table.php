@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('children', function (Blueprint $table) {
             $table->id();
+            $table->string('family_no');
             $table->date('date_of_registration');
             $table->date('date_of_birth');
             $table->string('place_of_birth');
