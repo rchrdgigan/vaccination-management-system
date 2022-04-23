@@ -30,8 +30,8 @@ class StoreRequest extends FormRequest
             'reg_date' => ['required'],
             'birth_date' => ['required'],
             'birth_place' => ['required'],
-            'weight' => ['required'],
-            'height' => ['required'],
+            'weight' => 'required|numeric',
+            'height' => 'required|numeric',
             'gender' => ['required'],
             'address' => ['required'],
         ];

@@ -14,7 +14,7 @@ Edit
 <div class="grid grid-cols-12 gap-6 mt-5">
     <div class="intro-y col-span-12 lg:col-span-12">
         <!-- BEGIN: Form Layout -->
-        <form action="{{route('children.update',$child->id)}}" method="POST">
+        <form action="{{route('children.update',$child->id)}}" name="myForm" method="POST">
             @csrf
             @method('PUT')
         <div class="intro-y box p-5">
@@ -56,7 +56,7 @@ Edit
             <div class="mt-3">
                 <label>Place of Birth</label>
                 <div class="relative mt-2">
-                    <input name="birth_place" type="text" class="input pr-16 w-full border col-span-4" placeholder="Price" value="{{$child->place_of_birth}}">
+                    <input name="birth_place" type="text" class="input pr-16 w-full border col-span-4" placeholder="Place of Birth" value="{{$child->place_of_birth}}">
                 </div>
                 @error('birth_place')
                     <div class="text-theme-6 mt-2">{{$message}}</div>
@@ -65,7 +65,7 @@ Edit
             <div class="mt-3">
                 <label>Birth Height</label>
                 <div class="relative mt-2">
-                    <input name="height"type="number" class="input pr-16 w-full border col-span-4" placeholder="Price" value="{{$child->birth_height}}">
+                    <input name="height" type="text" onkeypress="return validate();" class="input pr-16 w-full border col-span-4" placeholder="Birth Height" value="{{$child->birth_height}}">
                 </div>
                 @error('height')
                     <div class="text-theme-6 mt-2">{{$message}}</div>
@@ -74,7 +74,8 @@ Edit
             <div class="mt-3">
                 <label>Birth Weight</label>
                 <div class="relative mt-2">
-                    <input name="weight"type="number" class="input pr-16 w-full border col-span-4" placeholder="Price" value="{{$child->birth_weight}}">
+                    <input name="weight" type="text" onkeypress="return validate();" class="input pr-16 w-full border col-span-4" placeholder="Birth Weight" value="{{$child->birth_weight}}">
+                    <p id="weight_err" class="text-theme-6 mt-2"></p>
                 </div>
                 @error('weight')
                     <div class="text-theme-6 mt-2">{{$message}}</div>
