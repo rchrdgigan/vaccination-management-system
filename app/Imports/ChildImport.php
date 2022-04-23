@@ -47,6 +47,7 @@ WithEvents
             if($children == 0){
                 Child::create([
                     'barangay_id' => auth()->user()->barangay_id,
+                    'family_no' => $row['family_no'],
                     'childs_name' => $row['childs_name'],
                     'mothers_name' => $row['mothers_name'],
                     'fathers_name' => $row['fathers_name'],

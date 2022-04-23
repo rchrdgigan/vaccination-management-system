@@ -24,6 +24,7 @@ class ChildrenController extends Controller
         $reg_date = Carbon::parse($validated['reg_date']);
         $birth_date = Carbon::parse($validated['birth_date']);
         Child::create([
+            'family_no' => $validated['family_no'],
             'childs_name' => $validated['child_name'],
             'date_of_registration' => $reg_date,
             'date_of_birth' => $birth_date,
@@ -49,6 +50,7 @@ class ChildrenController extends Controller
         $reg_date = Carbon::parse($validated['reg_date']);
         $birth_date = Carbon::parse($validated['birth_date']);
         $child->update([
+            'family_no' => $validated['family_no'],
             'childs_name' => $validated['child_name'],
             'date_of_registration' => $reg_date,
             'date_of_birth' => $birth_date,
