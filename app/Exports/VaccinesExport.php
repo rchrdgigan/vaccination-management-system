@@ -35,7 +35,7 @@ class VaccinesExport implements
     public function headings(): array {
         return [
             'Vaccine',
-            'Brand',
+            'Description',
             'Dose',
         ];
     }
@@ -43,7 +43,7 @@ class VaccinesExport implements
     public function registerEvents(): array {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $event->sheet->getStyle('A1:D1')->applyFromArray([
+                $event->sheet->getStyle('A1:C1')->applyFromArray([
                     'font' => [
                         'bold' => true
                     ]
