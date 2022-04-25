@@ -16,6 +16,15 @@ Vaccines
         <h2 class="text-lg font-medium truncate mr-5">
             Vaccines Data
         </h2>
+        <form method="GET">
+            <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0 align-self-center flex">
+                <div class="w-56 relative text-gray-700 dark:text-gray-300">
+                    <input type="search" class="input w-56 box pr-10 placeholder-theme-13" placeholder="Search Vaccine's Name..." name="search"  >
+                    <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
+                </div>
+                <button class="button text-white bg-theme-1 shadow-md mx-2" type="submit">Go</button>
+            </div>
+        </form>
         <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
             <a href="{{route('vaccines.create')}}" class="button text-white bg-theme-1 shadow-md mr-2"> Add Vaccines </a>
             @livewire('vaccines.vaccines-export')
@@ -29,14 +38,6 @@ Vaccines
                         <h2 class="font-medium text-base mr-auto">
                             Import Vaccine File
                         </h2>
-                        <div class="dropdown sm:hidden">
-                            <a class="dropdown-toggle w-5 h-5 block" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal w-5 h-5 text-gray-700 dark:text-gray-600"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg> </a>
-                            <div class="dropdown-box w-40">
-                                <div class="dropdown-box__content box dark:bg-dark-1 p-2">
-                                    <a href="javascript:;" class="flex items-center p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file w-4 h-4 mr-2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg> Download Docs </a>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                   
                     <form action="/vaccines/import" method="POST" enctype="multipart/form-data">

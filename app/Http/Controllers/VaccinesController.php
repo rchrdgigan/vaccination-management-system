@@ -9,7 +9,7 @@ use App\Http\Requests\Vaccines\StoreRequest;
 class VaccinesController extends Controller
 {
     public function index(){
-        $vaccines = Vaccine::where('barangay_id', auth()->user()->barangay_id)->paginate(10);
+        $vaccines = Vaccine::search(request('search'))->where('barangay_id', auth()->user()->barangay_id)->paginate(10);
         return view('Pages.Vaccines.index', compact('vaccines'));
     }
 
