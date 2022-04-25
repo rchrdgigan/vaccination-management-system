@@ -80,7 +80,7 @@ Vaccinated Children
                         </div>
                     </div>
                   
-                    <form action="/vaccines/import" method="POST" enctype="multipart/form-data">
+                    <form action="/child-vaccines/import" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="p-5 grid grid-cols-12 gap-4 row-gap-3">
                         <div class="col-span-12 sm:col-span-12">
