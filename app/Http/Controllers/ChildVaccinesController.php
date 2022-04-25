@@ -47,7 +47,7 @@ class ChildVaccinesController extends Controller
                     $child_vaccines = ChildVaccine::create([
                         'child_id' => $validated['child_id'],
                         'vaccine_id' => $vaccines->id,
-                        'inj_1st_date' => Carbon::now(),
+                        'inj_1st_date' => now(),
                         'has_inj_1st_dose' => true,
                         'barangay_id' => auth()->user()->barangay_id,
                     ]);
@@ -111,11 +111,11 @@ class ChildVaccinesController extends Controller
         $get_vacc_dose = Vaccine::where('id', $chck_vaccine_id->vaccine_id)->first();
         $set_stat = $child_vacc->where( $strArrVar[$get_vacc_dose->has_dose - 1], true)->where('id', $child_vacc_id)->get();
         ChildVaccine::where('id', $child_vacc_id)->update([
-            'inj_1st_date' => $validated['inj_1st_date'],
+            'inj_1st_date' => Carbon::parse($validated['inj_1st_date'])->format('Y-m-d\TH:i'),
             'has_inj_1st_dose' => $validated['has_inj_1st_dose'],
-            'inj_2nd_date' => $validated['inj_2nd_date'],
+            'inj_2nd_date' => Carbon::parse($validated['inj_2nd_date'])->format('Y-m-d\TH:i'),
             'has_inj_2nd_dose' => $validated['has_inj_2nd_dose'],
-            'inj_3rd_date' => $validated['inj_3rd_date'],
+            'inj_3rd_date' => Carbon::parse($validated['inj_3rd_date'])->format('Y-m-d\TH:i'),
             'has_inj_3rd_dose' => $validated['has_inj_3rd_dose'],
             'status' => ($set_stat->isEmpty())? 'Partial-Vaccinated' : 'Fully-Vaccinated',
         ]);

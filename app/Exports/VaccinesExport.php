@@ -21,7 +21,7 @@ class VaccinesExport implements
     use Exportable;
  
     public function collection(){
-        return Vaccine::all();
+        return Vaccine::where('barangay_id', auth()->user()->barangay_id)->get();
     }
 
     public function map($vaccine): array {
