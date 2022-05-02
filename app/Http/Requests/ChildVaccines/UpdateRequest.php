@@ -24,13 +24,12 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'has_inj_1st_dose' => 'nullable',
-            'has_inj_2nd_dose' => 'nullable',
-            'has_inj_3rd_dose' => 'nullable',
-            'inj_1st_date' => 'nullable',
-            'inj_2nd_date' => 'nullable',
-            'inj_3rd_date' => 'nullable',
+            'vaccine_id' => 'nullable',
+            'vacc_dose_id' => 'nullable',
+            'has_inj' => 'nullable',
+            'inj_date' => 'nullable',
             'status' => 'nullable',
+            'reason' => 'nullable',
         ];
     }
 }

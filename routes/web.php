@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function(){
             Route::get('/remove/{childvaccines}', 'remove')->name('remove');
             Route::get('/destroy/{childvaccines}', 'destroy')->name('destroy');
             Route::get('/show/{childvaccines}', 'show')->name('show');
+            Route::post('/add/vaccine/{childvaccines}', 'addVaccineDose')->name('add');
         });
 
     Route::post('/vaccines/import', [VaccinesImportController::class, 'store'])->name('vaccines.import');

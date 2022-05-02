@@ -7,6 +7,7 @@ use App\Http\Requests\ChildVaccines\UpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\Child;
 use App\Models\ChildVaccine;
+use App\Models\DoseInject;
 use App\Models\Vaccine;
 use Carbon\Carbon;
 
@@ -25,8 +26,7 @@ class ChildVaccinesController extends Controller
             'child_vaccines.barangay_id'
         )
         ->groupBy('child_vaccines.barangay_id','children.id','children.childs_name', 'children.mothers_name', 'children.fathers_name', 'children.date_of_birth','children.gender')
-        ->where('child_vaccines.barangay_id',auth()->user()->barangay_id)->get();
-        
+        ->where('child_vaccines.barangay_id',auth()->user()->barangay_id)->where('childs_name', 'LIKE', '%'.request('search').'%')->get();
         return view('Pages.ChildVaccination.index',compact('child_vaccines','vaccine'));
     }
 
@@ -44,12 +44,17 @@ class ChildVaccinesController extends Controller
                 ->where('vaccine_id', $data_id)->count();
                 if($vaccine == 0){
                     $vaccines = Vaccine::findOrFail($data_id);
-                    $child_vaccines = ChildVaccine::create([
+                    $child_vacc = ChildVaccine::create([
                         'child_id' => $validated['child_id'],
                         'vaccine_id' => $vaccines->id,
-                        'inj_1st_date' => now(),
-                        'has_inj_1st_dose' => true,
                         'barangay_id' => auth()->user()->barangay_id,
+                    ]);
+                    $child_vacc->dose_inject()->create([
+                        'barangay_id' => auth()->user()->barangay_id,
+                        'dose' => 1,
+                        'has_inj' => true,
+                        'inj_date' => now(),
+                        'reason' => null,
                     ]);
                 }else{
                     return redirect()->route('child-vaccines.create')->with('error','Vaccines has been already taken!');
@@ -61,65 +66,85 @@ class ChildVaccinesController extends Controller
 
     public function edit($id){
         $child = Child::findOrFail($id);
-        $child_vaccines = ChildVaccine::where('child_id', $child->id)->join('vaccines', 'vaccines.id', '=', 'child_vaccines.vaccine_id')
-        ->select(
-            'child_vaccines.id as id',
-            'vaccines.id as vaccine_id',
-            'vaccines.vaccines_name as vaccines_name',
-            'vaccines.brand_name as brand_name',
-            'vaccines.has_dose as has_dose',
-            'child_vaccines.inj_1st_date as inj_1st_date',
-            'child_vaccines.has_inj_1st_dose as has_inj_1st_dose',
-            'child_vaccines.inj_2nd_date as inj_2nd_date',
-            'child_vaccines.has_inj_2nd_dose as has_inj_2nd_dose',
-            'child_vaccines.inj_3rd_date as inj_3rd_date',
-            'child_vaccines.has_inj_3rd_dose as has_inj_3rd_dose',
-        )
-        ->groupBy('child_vaccines.id','vaccines.id','vaccines.vaccines_name','vaccines.brand_name','vaccines.has_dose','child_vaccines.inj_1st_date','child_vaccines.has_inj_1st_dose','child_vaccines.inj_2nd_date','child_vaccines.has_inj_2nd_dose','child_vaccines.inj_3rd_date','child_vaccines.has_inj_3rd_dose')
-        ->get();
-        
-        return view('Pages.ChildVaccination.edit',compact('child_vaccines','child'));
+        $child_vaccines = ChildVaccine::with('dose_inject')->where('child_id', $child->id)->get();
+        $child_vaccines->map(function ($item){
+            $vaccine_data = Vaccine::findOrFail($item->vaccine_id);
+            $item->vaccines_name = $vaccine_data->vaccines_name;
+            $item->brand_name = $vaccine_data->brand_name;
+            $item->has_dose = $vaccine_data->has_dose;
+        });
+        return view('Pages.ChildVaccination.edit',compact('child','child_vaccines'));
     }
 
-    public function update($child_vacc_id, ChildVaccine $child_vacc, UpdateRequest $request){
+    public function addVaccineDose($id, Request $request){
+
+        if(!isset($validated['inj_date'])){
+            $validated['inj_date'] = null;
+        }
+        if(!isset($validated['dose'])){
+            $validated['dose'] = false;
+        }
+        if( $request->has_inj == null){
+            $request->has_inj = 0;
+        }
+        $get_vacc = Vaccine::where('id', $request->vaccine_id)->first();
+        $child_vacc = ChildVaccine::where('child_id',$id)->where('vaccine_id', $get_vacc->id)->where('barangay_id', auth()->user()->barangay_id)->first();
+        $check_recent_inj = DoseInject::where('child_vaccine_id',$child_vacc->id)->where('dose',$request->dose-1)->first();
+        if($check_recent_inj->has_inj == true){
+            $child_vacc->dose_inject()->create([
+                'barangay_id' => auth()->user()->barangay_id,
+                'dose' => $request->dose,
+                'has_inj' => $request->has_inj,
+                'inj_date' => Carbon::parse($validated['inj_date'])->format('Y-m-d\TH:i'),
+                'status' => $request->status,
+                'reason' => $request->reason,
+            ]);
+            $check_has_inj = DoseInject::where('child_vaccine_id',$child_vacc->id)->where('dose',$get_vacc->has_dose)->first();
+            if($check_has_inj != null){
+                if($check_has_inj->has_inj == true){
+                    $child_vacc->status = 'Fully-Vaccinated';
+                    $child_vacc->update();
+                }
+            }
+            return redirect()->back()->with('message','Dose of Vaccines has been added');
+
+        }else{
+            return redirect()->back()->with('message','No row added. Please check the recent dose if injected.');
+        }
+
+    }
+
+    public function update($child_id, UpdateRequest $request){
         
         $validated = $request->validated();
-
-        if(!isset($validated['inj_1st_date'])){
-            $validated['inj_1st_date'] = null;
+        if(!isset($validated['inj_date'])){
+            $validated['inj_date'] = null;
         }
-        if(!isset($validated['has_inj_1st_dose'])){
-            $validated['has_inj_1st_dose'] = false;
+        if(!isset($validated['has_inj'])){
+            $validated['has_inj'] = 0;
         }
-        if(!isset($validated['inj_2nd_date'])){
-            $validated['inj_2nd_date'] = null;
-        }
-        if(!isset($validated['has_inj_2nd_dose'])){
-            $validated['has_inj_2nd_dose'] = false;
-        }
-        if(!isset($validated['inj_3rd_date'])){
-            $validated['inj_3rd_date'] = null;
-        }
-        if(!isset($validated['has_inj_3rd_dose'])){
-            $validated['has_inj_3rd_dose'] = false;
-        }
-        $strArrVar = array('has_inj_1st_dose',
-                            'has_inj_2nd_dose',
-                            'has_inj_3rd_dose');
-
-        $chck_vaccine_id = $child_vacc->where('id', $child_vacc_id)->first();
-        $get_vacc_dose = Vaccine::where('id', $chck_vaccine_id->vaccine_id)->first();
-        $set_stat = $child_vacc->where( $strArrVar[$get_vacc_dose->has_dose - 1], true)->where('id', $child_vacc_id)->get();
-        ChildVaccine::where('id', $child_vacc_id)->update([
-            'inj_1st_date' => Carbon::parse($validated['inj_1st_date'])->format('Y-m-d\TH:i'),
-            'has_inj_1st_dose' => $validated['has_inj_1st_dose'],
-            'inj_2nd_date' => Carbon::parse($validated['inj_2nd_date'])->format('Y-m-d\TH:i'),
-            'has_inj_2nd_dose' => $validated['has_inj_2nd_dose'],
-            'inj_3rd_date' => Carbon::parse($validated['inj_3rd_date'])->format('Y-m-d\TH:i'),
-            'has_inj_3rd_dose' => $validated['has_inj_3rd_dose'],
-            'status' => ($set_stat->isEmpty())? 'Partial-Vaccinated' : 'Fully-Vaccinated',
+        $vacc_dose = DoseInject::findOrFail($validated['vacc_dose_id']);
+        $vacc_dose->update([
+            'barangay_id' => auth()->user()->barangay_id,
+            'has_inj' => $validated['has_inj'],
+            'inj_date' => Carbon::parse($validated['inj_date'])->format('Y-m-d\TH:i'),
+            'status' => $validated['status'],
+            'reason' => $validated['reason'],
         ]);
-        return redirect()->route('child-vaccines.index')->withSuccess('Child Vaccines has been updated');
+
+        $get_vacc = Vaccine::where('id', $request->vaccine_id)->first();
+        $child_vacc = ChildVaccine::where('child_id',$child_id)->where('vaccine_id', $get_vacc->id)->where('barangay_id', auth()->user()->barangay_id)->first();
+        $check_has_inj = DoseInject::where('child_vaccine_id', $child_vacc->id)->where('dose', $get_vacc->has_dose)->first();
+        if($check_has_inj != null){
+            if($check_has_inj->has_inj == true){
+                $child_vacc->status = 'Fully-Vaccinated';
+                $child_vacc->update();
+            }else{
+                $child_vacc->status = 'Partial-Vaccinated';
+                $child_vacc->update();
+            }
+        }
+        return redirect()->back()->with('message','Dose of Vaccines has been update');
     }
 
     public function remove($id){
@@ -129,7 +154,8 @@ class ChildVaccinesController extends Controller
     }
 
     public function destroy($id){
-        $del_childvac = ChildVaccine::where('child_id',$id)->delete();
+        $del_childvac = ChildVaccine::findOrFail($id);
+        $del_childvac->delete();
         return redirect()->route('child-vaccines.index')->withSuccess('Child Vaccination record has been deleted');
     }
 
@@ -154,4 +180,5 @@ class ChildVaccinesController extends Controller
         
         return view('Pages.ChildVaccination.show',compact('child_vaccines', 'child'));
     }
+
 }
