@@ -27,6 +27,7 @@ class ChildVaccinesController extends Controller
         )
         ->groupBy('child_vaccines.barangay_id','children.id','children.childs_name', 'children.mothers_name', 'children.fathers_name', 'children.date_of_birth','children.gender')
         ->where('child_vaccines.barangay_id',auth()->user()->barangay_id)->where('childs_name', 'LIKE', '%'.request('search').'%')->get();
+        
         return view('Pages.ChildVaccination.index',compact('child_vaccines','vaccine'));
     }
 
@@ -66,14 +67,44 @@ class ChildVaccinesController extends Controller
 
     public function edit($id){
         $child = Child::findOrFail($id);
-        $child_vaccines = ChildVaccine::with('dose_inject')->where('child_id', $child->id)->get();
-        $child_vaccines->map(function ($item){
-            $vaccine_data = Vaccine::findOrFail($item->vaccine_id);
-            $item->vaccines_name = $vaccine_data->vaccines_name;
-            $item->brand_name = $vaccine_data->brand_name;
-            $item->has_dose = $vaccine_data->has_dose;
-        });
-        return view('Pages.ChildVaccination.edit',compact('child','child_vaccines'));
+
+        if(!isset($_GET['vaccine_id'])){
+            $child_vaccines = ChildVaccine::where('child_id', $child->id)->join('vaccines', 'vaccines.id', '=', 'child_vaccines.vaccine_id')
+            ->select(
+                'child_vaccines.id as id',
+                'vaccines.id as vaccine_id',
+                'vaccines.vaccines_name as vaccines_name',
+                'vaccines.brand_name as brand_name',
+                'vaccines.has_dose as has_dose',
+                'child_vaccines.inj_1st_date as inj_1st_date',
+                'child_vaccines.has_inj_1st_dose as has_inj_1st_dose',
+                'child_vaccines.inj_2nd_date as inj_2nd_date',
+                'child_vaccines.has_inj_2nd_dose as has_inj_2nd_dose',
+                'child_vaccines.inj_3rd_date as inj_3rd_date',
+                'child_vaccines.has_inj_3rd_dose as has_inj_3rd_dose',
+            )
+            ->groupBy('child_vaccines.id','vaccines.id','vaccines.vaccines_name','vaccines.brand_name','vaccines.has_dose','child_vaccines.inj_1st_date','child_vaccines.has_inj_1st_dose','child_vaccines.inj_2nd_date','child_vaccines.has_inj_2nd_dose','child_vaccines.inj_3rd_date','child_vaccines.has_inj_3rd_dose')
+            ->get();
+        } else {
+            $child_vaccines = ChildVaccine::where('child_id', $child->id)->join('vaccines', 'vaccines.id', '=', 'child_vaccines.vaccine_id')->where('vaccine_id', $_GET['vaccine_id'])
+            ->select(
+                'child_vaccines.id as id',
+                'vaccines.id as vaccine_id',
+                'vaccines.vaccines_name as vaccines_name',
+                'vaccines.brand_name as brand_name',
+                'vaccines.has_dose as has_dose',
+                'child_vaccines.inj_1st_date as inj_1st_date',
+                'child_vaccines.has_inj_1st_dose as has_inj_1st_dose',
+                'child_vaccines.inj_2nd_date as inj_2nd_date',
+                'child_vaccines.has_inj_2nd_dose as has_inj_2nd_dose',
+                'child_vaccines.inj_3rd_date as inj_3rd_date',
+                'child_vaccines.has_inj_3rd_dose as has_inj_3rd_dose',
+            )
+            ->groupBy('child_vaccines.id','vaccines.id','vaccines.vaccines_name','vaccines.brand_name','vaccines.has_dose','child_vaccines.inj_1st_date','child_vaccines.has_inj_1st_dose','child_vaccines.inj_2nd_date','child_vaccines.has_inj_2nd_dose','child_vaccines.inj_3rd_date','child_vaccines.has_inj_3rd_dose')
+            ->get();
+        }
+        
+        return view('Pages.ChildVaccination.edit',compact('child_vaccines','child'));
     }
 
     public function addVaccineDose($id, Request $request){
@@ -181,4 +212,14 @@ class ChildVaccinesController extends Controller
         return view('Pages.ChildVaccination.show',compact('child_vaccines', 'child'));
     }
 
+    public function getChildVaccineAvailable($id){
+        $child = Child::where('id', $id)->get();
+        $childvac = ChildVaccine::where('child_id',$id)->get();
+        foreach($childvac as $data){
+            $arry_id[] = $data->vaccine_id;
+            $vaccine = Vaccine::whereNotIn('id',$arry_id)->get();
+        }
+        return view('Pages.ChildVaccination.create',compact('child','vaccine'));
+
+    }
 }

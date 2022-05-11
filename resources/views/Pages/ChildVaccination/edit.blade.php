@@ -72,6 +72,11 @@ Vaccines > Edit
                             <h2 class="font-medium text-base mx-auto">
                                 Vaccine Information
                             </h2>
+                            <a href="{{route('child-vaccines.available',$child->id)}}" class="button px-2 mr-1 box">
+                                <div class="flex">
+                                    <span class="w-5 h-5 flex items-center justify-center"><i data-feather="eye" class="w-4 h-4 mr-2"></i></span> Available Vaccines
+                                </div>
+                            </a>
                             
                         </div>
                         
