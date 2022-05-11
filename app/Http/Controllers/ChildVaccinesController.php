@@ -14,7 +14,7 @@ use Carbon\Carbon;
 class ChildVaccinesController extends Controller
 {
     public function index(Vaccine $vaccine){
-        
+
         $child_vaccines = ChildVaccine::join('children', 'children.id', '=', 'child_vaccines.child_id')
         ->select(
             'children.id as child_id',
@@ -27,7 +27,7 @@ class ChildVaccinesController extends Controller
         )
         ->groupBy('child_vaccines.barangay_id','children.id','children.childs_name', 'children.mothers_name', 'children.fathers_name', 'children.date_of_birth','children.gender')
         ->where('child_vaccines.barangay_id',auth()->user()->barangay_id)->where('childs_name', 'LIKE', '%'.request('search').'%')->get();
-        
+
         return view('Pages.ChildVaccination.index',compact('child_vaccines','vaccine'));
     }
 
@@ -98,12 +98,12 @@ class ChildVaccinesController extends Controller
             ->groupBy('child_vaccines.id','vaccines.id','vaccines.vaccines_name','vaccines.brand_name','vaccines.has_dose','child_vaccines.inj_1st_date','child_vaccines.has_inj_1st_dose','child_vaccines.inj_2nd_date','child_vaccines.has_inj_2nd_dose','child_vaccines.inj_3rd_date','child_vaccines.has_inj_3rd_dose')
             ->get();
         }
-        
+
         return view('Pages.ChildVaccination.edit',compact('child_vaccines','child'));
     }
 
     public function update($child_vacc_id, ChildVaccine $child_vacc, UpdateRequest $request){
-        
+
         $validated = $request->validated();
 
         if(!isset($validated['inj_1st_date'])){
@@ -138,7 +138,7 @@ class ChildVaccinesController extends Controller
             'has_inj_2nd_dose' => $validated['has_inj_2nd_dose'],
             'inj_3rd_date' => Carbon::parse($validated['inj_3rd_date'])->format('Y-m-d\TH:i'),
             'has_inj_3rd_dose' => $validated['has_inj_3rd_dose'],
-            'status' => ($set_stat->isEmpty())? 'Partial-Vaccinated' : 'Fully-Vaccinated',
+            'status' => ($set_stat->isNotEmpty())? 'Partial-Vaccinated' : 'Fully-Vaccinated',
         ]);
         return redirect()->route('child-vaccines.index')->withSuccess('Child Vaccines has been updated');
     }
@@ -172,7 +172,7 @@ class ChildVaccinesController extends Controller
         )
         ->groupBy('child_vaccines.id','vaccines.id','vaccines.vaccines_name','vaccines.brand_name','vaccines.has_dose','child_vaccines.inj_1st_date','child_vaccines.has_inj_1st_dose','child_vaccines.inj_2nd_date','child_vaccines.has_inj_2nd_dose','child_vaccines.inj_3rd_date','child_vaccines.has_inj_3rd_dose')
         ->get();
-        
+
         return view('Pages.ChildVaccination.show',compact('child_vaccines', 'child'));
     }
 

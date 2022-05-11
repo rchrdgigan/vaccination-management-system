@@ -14,7 +14,7 @@ Dashboard
             <div class="report-box zoom-in">
                 <div class="box p-5">
                     <div class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
                     <div class="text-3xl font-bold leading-8 mt-6">0</div>
                     <div class="text-base text-gray-600 mt-1">Total of Registered Child</div>
@@ -25,7 +25,7 @@ Dashboard
             <div class="report-box zoom-in">
                 <div class="box p-5">
                     <div class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
                     <div class="text-3xl font-bold leading-8 mt-6">0</div>
                     <div class="text-base text-gray-600 mt-1">Total of Partial Vaccinated</div>
@@ -36,7 +36,7 @@ Dashboard
             <div class="report-box zoom-in">
                 <div class="box p-5">
                     <div class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
                     <div class="text-3xl font-bold leading-8 mt-6">0</div>
                     <div class="text-base text-gray-600 mt-1">Total of Fully Vaccinated</div>
@@ -47,7 +47,7 @@ Dashboard
             <div class="report-box zoom-in">
                 <div class="box p-5">
                     <div class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
                     <div class="text-3xl font-bold leading-8 mt-6">0</div>
                     <div class="text-base text-gray-600 mt-1">Total of Registered Midwife</div>
@@ -73,9 +73,17 @@ Dashboard
                 </div>
             </div>
         </div>
-        <div class="report-chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-            <canvas id="report-vaccinated-chart" height="203" class="mt-6 chartjs-render-monitor" style="display: block; width: 382px; height: 203px;" width="382"></canvas>
-        </div>
+        <div id="chart" style="height: 300px;"></div>
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script>
+        const chart = new Chartisan({
+            el: '#chart',
+            url: "@chart('vax_chart')",
+            hooks: new ChartisanHooks()
+                .legend({position: 'bottom'})
+        });
+    </script>
+@endpush

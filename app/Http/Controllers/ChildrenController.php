@@ -12,7 +12,9 @@ class ChildrenController extends Controller
 {
     public function index(){
         $childrens = Child::search(request('search'))->where('barangay_id', auth()->user()->barangay_id)->paginate(10);
-        return view('Pages.Children.index', compact('childrens'));
+        $count = count($childrens);
+
+        return view('Pages.Children.index', compact('childrens','count'));
     }
 
     public function create(){

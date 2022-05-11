@@ -22,6 +22,7 @@ Children
                     <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-feather="search"></i>
                 </div>
                 <button class="button text-white bg-theme-1 shadow-md mx-2" type="submit">Go</button>
+                <a href="/children" class=" flex items-center block pr-5 pl-5 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md">Clear</a>
             </div>
         </form>
         <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
@@ -82,6 +83,7 @@ Children
     </div>
     <div class="intro-y overflow-auto xxxl:overflow-visible mt-8 sm:mt-0">
         <table class="table table-report sm:mt-2">
+            @if ($count !=0)
             <thead>
                 <tr>
                     <th class="text-center whitespace-no-wrap">FAMILY'S NO.</th>
@@ -99,6 +101,7 @@ Children
                 </tr>
             </thead>
             <tbody>
+
                 @foreach ($childrens as $child)
                 <tr class="intro-x">
                     <td class="w-40">
@@ -165,6 +168,10 @@ Children
                     </td>
                 </tr>
                 @endforeach
+            @else
+                    <p class="mt-5 md:block mx-auto text-gray-600 text-center">No Available Data</p>
+            @endif
+
             </tbody>
         </table>
     </div>
