@@ -37,7 +37,7 @@ Show | Vaccination Status
                 ?>
                 @for($i = 0; $i < $vaccines->has_dose; $i++)
                     @if($ArrValDate[$i] != null)
-                    <a href="{{route('child-vaccines.edit', $child->id)}}">
+                    <a href="{{route('child-vaccines.edit', ['child_id' => $child->id, 'vaccine_id' => $vaccines->id])}}">
                     <div class="intro-x relative flex items-center mb-3">
                         <div class="report-timeline__image">
                             <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
@@ -61,7 +61,7 @@ Show | Vaccination Status
                     </div>
                     </a>
                     @else
-                    <a href="{{route('child-vaccines.edit', $child->id)}}">
+                    <a href="{{route('child-vaccines.edit', ['child_id' => $child->id, 'vaccine_id' => $vaccines->id])}}">
                     <div class="intro-x relative flex items-center mb-3">
                         <div class="report-timeline__image">
                             <div class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
