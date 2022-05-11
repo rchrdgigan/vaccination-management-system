@@ -46,7 +46,7 @@ class VaxChart extends BaseChart
         $current_year_partial = ChildVaccine::where('status', 'Partial-Vaccinated')
                     ->whereYear('created_at', date('Y'))
                     ->count();
-        $current_year_vaccinated = ChildVaccine::where('status', 'Partial-Vaccinated')
+        $current_year_vaccinated = ChildVaccine::where('status', 'Fully-Vaccinated')
                     ->whereYear('created_at', date('Y'))
                     ->count();
         $current_year_unvaccinated= Child::doesntHave('child_vaccine')
