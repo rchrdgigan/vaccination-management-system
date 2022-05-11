@@ -28,6 +28,9 @@
         <script src="{{asset('assets/js/app.js')}}"></script>
         <script src="{{asset('js/validation.js')}}"></script>
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://unpkg.com/echarts/dist/echarts.min.js"></script>
+        <!-- Chartisan -->
+        <script src="https://unpkg.com/@chartisan/echarts/dist/chartisan_echarts.js"></script>
         @livewireScripts
         @stack('scripts')
         <script>
