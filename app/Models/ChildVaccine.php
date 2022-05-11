@@ -12,6 +12,12 @@ class ChildVaccine extends Model
     protected $fillable = [
         'child_id',
         'vaccine_id',
+        'inj_1st_date',
+        'inj_2nd_date',
+        'inj_3rd_date',
+        'has_inj_1st_dose',
+        'has_inj_2nd_dose',
+        'has_inj_3rd_dose',
         'barangay_id'
     ];
 
@@ -23,10 +29,5 @@ class ChildVaccine extends Model
     public function child()
     {
         return $this->belongsTo(Child::class);
-    }
-
-    public function dose_inject()
-    {
-        return $this->hasMany(DoseInject::class);
     }
 }
