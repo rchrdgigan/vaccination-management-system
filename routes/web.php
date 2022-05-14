@@ -50,9 +50,11 @@ Route::middleware('auth')->group(function(){
             Route::get('/edit/{child_id}', 'edit')->name('edit');
             Route::put('/update/{childvaccines}', 'update')->name('update');
             Route::get('/remove/{childvaccines}', 'remove')->name('remove');
-            Route::get('/destroy/{childvaccines}', 'destroy')->name('destroy');
+            Route::delete('/destroy', 'destroy')->name('destroy');
             Route::get('/show/{childvaccines}', 'show')->name('show');
+            Route::get('/search', 'search')->name('search');
             Route::get('/available/vaccine/{child_id}', 'getChildVaccineAvailable')->name('available');
+            Route::post('/inject', 'injectData')->name('inject');
         });
 
     Route::post('/vaccines/import', [VaccinesImportController::class, 'store'])->name('vaccines.import');
