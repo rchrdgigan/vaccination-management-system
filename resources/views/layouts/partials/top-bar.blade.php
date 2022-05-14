@@ -7,8 +7,8 @@
         <div class="dropdown-box w-56">
             <div class="dropdown-box__content box bg-theme-38 dark:bg-dark-6 text-white">
                 <div class="p-4 border-b border-theme-40 dark:border-dark-3">
-                    <div class="font-medium">John Travolta</div>
-                    <div class="text-xs text-theme-41 dark:text-gray-600">DevOps Engineer</div>
+                    <div class="font-medium">{{auth()->user()->name}}</div>
+                    <div class="text-xs text-theme-41 dark:text-gray-600">{{auth()->user()->email}}</div>
                 </div>
                 <div class="p-2 border-t border-theme-40 dark:border-dark-3">
                 <form method="POST" action="{{ route('logout') }}">

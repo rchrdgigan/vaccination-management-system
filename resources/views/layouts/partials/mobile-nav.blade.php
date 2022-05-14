@@ -30,5 +30,11 @@
                 <div class="menu__title"> Children Vaccination </div>
             </a>
         </li>
+        <li>
+            <a href="#" class="menu menu">
+                <div class="menu__icon"> <i data-feather="calendar"></i> </div>
+                <div class="menu__title"> Generate Report </div>
+            </a>
+        </li>
     </ul>
 </div>
