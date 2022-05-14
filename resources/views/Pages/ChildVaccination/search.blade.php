@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title')
-Vaccinated Children
+Unvaccinated Children
 @endsection
 @section('breadcrumbs')
-Vaccinated Children
+Unvaccinated Children
 @endsection
 @push('links')
 
@@ -14,11 +14,11 @@ Vaccinated Children
     <x-warning/>
 
     <div class="intro-y block sm:flex items-center h-10">
-        <h2 class="text-lg font-medium truncate mr-5">
-            Vaccinated Children List
+        <h2 class="text-lg font-small truncate mr-5">
+            Generated List of Unvaccinated
         </h2>
-        <!-- BEGIN:Filter -->
-        <div class="intro-y flex flex-col-reverse sm:flex-row items-center">
+         <!-- BEGIN:Filter -->
+         <div class="intro-y flex flex-col-reverse sm:flex-row items-center">
             <div class="w-full sm:w-auto relative mr-auto mt-3 sm:mt-0">
                 <form method="GET">
                     <i class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0 z-10 text-gray-700 dark:text-gray-300" data-feather="search"></i> 
@@ -40,7 +40,7 @@ Vaccinated Children
                                     </div>
                                     <div class="col-span-6">
                                         <div class="text-xs">Vaccine Name</div>
-                                        <input type="text" class="input w-full border mt-2 flex-1" name="vaccines_name" placeholder="Vaccine">
+                                        <input type="text" class="input w-full border mt-2 flex-1" required name="vaccines_name" placeholder="Vaccine">
                                     </div>
                                     <div class="col-span-6">
                                         <div class="text-xs">Dose</div>
@@ -61,9 +61,9 @@ Vaccinated Children
             </div>
         </div>
         <!-- END:Filter -->
-       
+
         <div class="flex items-center sm:ml-auto mt-3 sm:mt-0">
-            <a href="{{route('child-vaccines.create')}}" class="button text-white bg-theme-1 shadow-md mr-2"> Add Vaccinated Child </a>
+            <a href="{{route('child-vaccines.create')}}" class="button text-white bg-theme-1 shadow-md mr-2"> Add Vaccinated Child </a> 
             @livewire('child-vaccines.child-vaccines-export')
 
             <a  href="javascript:;" data-toggle="modal" data-target="#basic-modal-preview" class="ml-2 flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"><span class="w-5 h-5 flex items-center justify-center"> <i data-feather="file-text" class="w-4 h-4"></i> </span> Import </a>
@@ -111,76 +111,90 @@ Vaccinated Children
 
         </div>
     </div>
-    <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5">
-        @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-        @endif
 
-        @if (isset($errors) && $errors->any())
-            <div class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    {{ $error }}
-                @endforeach
-            </div>
-        @endif
-          
-        <!-- Vaccinated Children List -->
-        @foreach($child_vaccines as $data)
-        <div class="intro-y col-span-12 md:col-span-3">
-            <div class="box">
-                <div class="flex flex-col lg:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
-                    <div class="w-24 h-24 lg:w-12 lg:h-12 image-fit lg:mr-1">
-                        @if($data->gender == 'Male')
-                        <img class="rounded-full" src="images/son.png">
-                        @else
-                        <img class="rounded-full" src="images/daughter.png">
-                        @endif
-                    </div>
-                    <div class="lg:ml-2 lg:mr-auto text-center lg:text-left mt-3 lg:mt-0">
-                        <a href="" class="font-medium">{{$data->childs_name}}</a> 
-                        <div class="text-gray-600 text-xs">Mother : {{$data->mothers_name}}</div>
-                        <div class="text-gray-600 text-xs">Father : {{$data->fathers_name}}</div>
-                        <div class="text-gray-600 text-xs">Date of Birth : {{Carbon\Carbon::parse($data->date_of_birth)->format('M d, Y')}}</div>
-                    </div>
-                    <div class="absolute top-0 right-0 mr-2 mt-2 dropdown ml-auto">
-                        <a class="dropdown-toggle w-5 h-5 block" href="javascript:;"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical w-5 h-5 text-gray-500"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg> </a>
-                        <div class="dropdown-box w-40" id="_f7cx5pv5u" data-popper-placement="bottom-end" style="position: absolute; inset: 0px auto auto 0px; transform: translate(-140px, 20px);">
-                            <div class="dropdown-box__content box dark:bg-dark-1 p-2">
-                                <a href="{{route('child-vaccines.edit', $data->child_id)}}" class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i>  Edit Vaccine</a>
-                                
-                            </div>
+    <div class="intro-y overflow-auto xxxl:overflow-visible mt-8 sm:mt-0">
+        <table class="table table-report sm:mt-2">
+            <thead>
+                <tr>
+                    <th class="text-center whitespace-no-wrap">CHILD'S NAME</th>
+                    <th class="text-center whitespace-no-wrap">MOTHER'S NAME</th>
+                    <th class="text-center whitespace-no-wrap">FATHER'S NAME</th>
+                    <th class="text-center whitespace-no-wrap">DATE OF BIRTH</th>
+                    <th class="text-center whitespace-no-wrap">VACCINE</th>
+                    <th class="text-center whitespace-no-wrap">DOSE</th>
+                    <th class="text-center whitespace-no-wrap">DATE OF SCHEDULE</th>
+                    <th class="text-center whitespace-no-wrap">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($child_vaccines as $data)
+                <tr class="intro-x">
+                    <td class="w-40">
+                            <p class="font-small text-center">{{$data->childs_name}}</p>
+                    </td>
+                    <td class="w-40">
+                            <p class="font-small  text-center">{{$data->mothers_name}}</p>
+                    </td>
+                    <td class="w-40">
+                            <p class="font-small text-center">{{$data->fathers_name}}</p>
+                    </td>
+                    <td class="w-40">
+                            <p class="font-small text-center">{{$data->date_of_birth}}</p>
+                    </td>
+                    <td class="w-40">
+                            <p class="font-small   text-center">{{(isset($data->vaccines_name))?$data->vaccines_name : $vaccines_name}}</p>
+                    </td>
+                    <td class="w-40">
+                            <p class="font-small   text-center">{{$dose}}</p>
+                    </td>
+                    <td class="w-40">
+                            <p class="font-small   text-center">
+                                {{(isset($data->inj_3rd_date)) ?
+                                    Carbon\Carbon::parse($data->inj_3rd_date)->format('M d, Y') :
+                                    (isset($data->inj_2nd_date) ? Carbon\Carbon::parse($data->inj_2nd_date)->format('M d, Y') :
+                                    (isset($data->inj_1st_date) ? Carbon\Carbon::parse($data->inj_1st_date)->format('M d, Y') : 'N/A'))}}</p>
+                    </td>
+                    <td class="table-report__action w-56">
+                        @if($dose == 1)
+                        <div class="flex justify-center items-center">
+                            <a href="javascript:;" data-toggle="modal" data-target="#add-modal-preview"
+                                                data-child_id="{{$data->id}}" 
+                                                data-vaccine_id="{{$vaccine->id}}" 
+                            class="button w-30 bg-green-600 text-white flex items-center open-dialog"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Inject Vaccine</a>
                         </div>
-                    </div>
+                       
+                        @else
+                        <div class="flex justify-center items-center">
+                            <a href="{{route('child-vaccines.edit', ['child_id' => (isset($data->child_id)) ? $data->child_id : $data->id, 'vaccine_id' => (isset($data->vaccine_id)) ? $data->vaccine_id : $vaccine->id])}}" class="button w-30 bg-green-600 text-white flex items-center"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Inject Vaccine</a>
+                        </div>
+                        @endif
+                    </td>
+                </tr>
+                @empty
+                <div class="alert rounded-md flex items-center px-5 py-4 mt-5 mb-5 bg-theme-12 text-white">
+                    <i data-feather="alert-circle" class="w-6 h-6 mr-2"></i>
+                    No unvaccinated child found in this specific vaccine!
                 </div>
-                <div class="flex flex-wrap lg:flex-no-wrap p-5">
-                    <a href="{{route('child-vaccines.show', $data->child_id)}}" class="button text-white bg-theme-34 mr-2 flex "> <i data-feather="eye" class="w-4 h-4 mr-1"></i> Vaccine Status</a>
-                    <a href="javascript:;" data-toggle="modal" data-target="#delete-modal-preview"
-                                                data-child_id="{{$data->child_id}}"
-                                                class="flex items-center block p-2 transition duration-300 ease-in-out bg-white dark:bg-dark-1 hover:bg-gray-200 dark:hover:bg-dark-2 rounded-md del-dialog"> 
-                                                <i data-feather="trash" class="w-4 h-4 mr-1"></i>  Delete Record</a>
-                </div>
-            </div>
-        </div>
-        @endforeach
+                @endforelse
+            </tbody>
+        </table>
     </div>
-    <div class="modal" id="delete-modal-preview">
-        <div class="modal__content">
-            <div class="p-5 text-center"> <i data-feather="x-circle" class="w-16 h-16 text-theme-6 mx-auto mt-3"></i>
-                <div class="text-3xl mt-5">Are you sure?</div>
-                <div class="text-gray-600 mt-2">Do you really want to remove these records? This process cannot be undone.</div>
-            </div>
-            <form action="{{route('child-vaccines.destroy')}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <div class="px-5 pb-8 text-center modal-body"> 
-                    <button type="button" data-dismiss="modal" class="button w-24 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button> 
-                    <input type="text" id="child_id" name="child_id" hidden>
-                    <button type="submit" class="button w-24 bg-theme-6 text-white">Yes</button> 
-                </div>
-            </form>
+</div>
+<div class="modal" id="add-modal-preview">
+    <div class="modal__content">
+        <div class="p-5 text-center"> <i data-feather="alert-triangle" class="w-16 h-16 text-theme-10 mx-auto mt-3"></i>
+            <div class="text-3xl mt-5">Are you sure?</div>
+            <div class="text-gray-600 mt-2">Do you really want to insert these records? This process cannot be undone.</div>
         </div>
+        <form action="{{route('child-vaccines.inject')}}" method="post">
+            @csrf
+            <div class="px-5 pb-8 text-center modal-body"> 
+                <button type="button" data-dismiss="modal" class="button w-24 border text-gray-700 dark:border-dark-5 dark:text-gray-300 mr-1">Cancel</button> 
+                <input type="text" id="vacc_id" name="vaccine_id" hidden>
+                <input type="text" id="child_id" name="child_id" hidden>
+                <button type="submit" class="button w-24 bg-theme-10 text-white">Yes</button> 
+            </div>
+        </form>
     </div>
 </div>
 @endsection

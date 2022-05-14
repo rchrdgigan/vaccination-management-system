@@ -60,41 +60,14 @@
             $(document).on("click", ".open-dialog", function () {
                 var child_id = $(this).data('child_id');
                 var vaccine_id = $(this).data('vaccine_id');
-                var vaccine_name = $(this).data('vaccine_name');
-                var vaccine_dose = $(this).data('vaccine_dose');
-                var vaccine_description = $(this).data('vaccine_description');
-                var dose = $(this).data('dose');
-                $('.modal-body #dose').val(dose);
-                $('.modal-body #vacc_dose').val(vaccine_name + " - " + dose);
-                $('.modal-body #description').val(vaccine_description);
-                $('.modal-body #vaccine_id').val(vaccine_id);
+                $('.modal-body #vacc_id').val(vaccine_id);
+                $('.modal-body #child_id').val(child_id);
               });
         </script>
-         <script>
-            $(document).on("click", ".edit-dialog", function () {
-                var id = $(this).data('id');
-                var vaccine_id = $(this).data('vaccine_id');
-                var vaccine_name = $(this).data('vaccine_name');
-                var vaccine_dose = $(this).data('vaccine_dose');
-                var vaccine_description = $(this).data('vaccine_description');
-                var dose = $(this).data('dose');
-                var remarks = $(this).data('remarks');
-                var status = $(this).data('status');
-                var date = $(this).data('date');
-                var inj = $(this).data('inj');
-                if(inj == 1){
-                    document.getElementById("has_inj").checked = true;
-                }else{
-                    document.getElementById("has_inj").checked = false;
-                }
-                document.getElementById("status").value = status;
-                $('.modal-body #id').val(id);
-                $('.modal-body #dose').val(dose);
-                $('.modal-body #vacc_dose').val(vaccine_name + " - " + dose);
-                $('.modal-body #description').val(vaccine_description);
-                $('.modal-body #remarks').val(remarks);
-                $('.modal-body #date').val(date);
-                $('.modal-body #vaccine_id').val(vaccine_id);
+        <script>
+            $(document).on("click", ".del-dialog", function () {
+                var child_id = $(this).data('child_id');
+                $('.modal-body #child_id').val(child_id);
               });
         </script>
     </body>
