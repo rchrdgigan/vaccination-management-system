@@ -16,7 +16,7 @@ Dashboard
                     <div class="flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{$registered_child}}</div>
                     <div class="text-base text-gray-600 mt-1">Total of Registered Child</div>
                 </div>
             </div>
@@ -27,7 +27,7 @@ Dashboard
                     <div class="flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{$partial_vaccinated}}</div>
                     <div class="text-base text-gray-600 mt-1">Total of Partial Vaccinated</div>
                 </div>
             </div>
@@ -38,7 +38,7 @@ Dashboard
                     <div class="flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{$fully_vaccinated}}</div>
                     <div class="text-base text-gray-600 mt-1">Total of Fully Vaccinated</div>
                 </div>
             </div>
@@ -49,7 +49,7 @@ Dashboard
                     <div class="flex">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user report-box__icon text-theme-9"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
-                    <div class="text-3xl font-bold leading-8 mt-6">0</div>
+                    <div class="text-3xl font-bold leading-8 mt-6">{{$registered_midwife}}</div>
                     <div class="text-base text-gray-600 mt-1">Total of Registered Midwife</div>
                 </div>
             </div>
@@ -65,14 +65,6 @@ Dashboard
         </h2>
     </div>
     <div class="intro-y box p-5 mt-12 sm:mt-5">
-        <div class="flex flex-col xl:flex-row xl:items-center">
-            <div class="flex">
-                <div>
-                    <div class="text-theme-20 dark:text-gray-300 text-lg xl:text-xl font-bold">0</div>
-                    <div class="text-gray-600 dark:text-gray-600">Vaccinated This Month</div>
-                </div>
-            </div>
-        </div>
         <div id="chart" style="height: 300px;"></div>
     </div>
 </div>

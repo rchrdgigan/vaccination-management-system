@@ -20,12 +20,9 @@ Unvaccinated Children
          <!-- BEGIN:Filter -->
          <div class="intro-y flex flex-col-reverse sm:flex-row items-center">
             <div class="w-full sm:w-auto relative mr-auto mt-3 sm:mt-0">
-                <form method="GET">
-                    <i class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0 z-10 text-gray-700 dark:text-gray-300" data-feather="search"></i> 
-                    <input type="text" class="input w-full sm:w-64 box px-10 text-gray-700 dark:text-gray-300 placeholder-theme-13" placeholder="Search Child Name" name="search">
-                </form>
+                <input type="button" class="button w-full box px-10 text-white bg-theme-3" value="Filter">
                 <div class="inbox-filter dropdown absolute inset-y-0 mr-3 right-0 flex items-center" data-placement="bottom-start">
-                    <i class="dropdown-toggle w-4 h-4 cursor-pointer text-gray-700 dark:text-gray-300" data-feather="chevron-down"></i> 
+                    <i class="dropdown-toggle w-4 h-4 cursor-pointer text-white dark:text-gray-300" data-feather="chevron-down"></i> 
                     <div class="inbox-filter__dropdown-box dropdown-box pt-2">
                         <div class="dropdown-box__content box p-5">
                             <form action="{{route('child-vaccines.search', ['date_from' => isset($_GET['date_from']),'date_to' => isset($_GET['date_to']),'vaccine' => isset($_GET['vaccines_name']),'dose' => isset($_GET['has_dose'])])}}" method="GET">

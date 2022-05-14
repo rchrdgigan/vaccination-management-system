@@ -29,5 +29,11 @@
                             <div class="side-menu__title"> Children Vaccination </div>
                         </a>
                     </li>
+                    <li>
+                        <a href="#" class="side-menu ">
+                            <div class="side-menu__icon"> <i data-feather="calendar"></i> </div>
+                            <div class="side-menu__title"> Generate Report </div>
+                        </a>
+                    </li>
                 </ul>
             </nav>

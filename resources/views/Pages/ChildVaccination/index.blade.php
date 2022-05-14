@@ -127,7 +127,7 @@ Vaccinated Children
         @endif
           
         <!-- Vaccinated Children List -->
-        @foreach($child_vaccines as $data)
+        @forelse($child_vaccines as $data)
         <div class="intro-y col-span-12 md:col-span-3">
             <div class="box">
                 <div class="flex flex-col lg:flex-row items-center p-5 border-b border-gray-200 dark:border-dark-5">
@@ -163,7 +163,14 @@ Vaccinated Children
                 </div>
             </div>
         </div>
-        @endforeach
+        @empty
+        <div class="intro-y col-span-12 md:col-span-12">
+        <div class="alert rounded-md flex items-center px-5 py-4 mt-5 mb-5 bg-theme-12 text-white">
+            <i data-feather="alert-circle" class="w-6 h-6 mr-2"></i>
+            No child vaccine data found!
+        </div>
+        </div>
+        @endforelse
     </div>
     <div class="modal" id="delete-modal-preview">
         <div class="modal__content">
