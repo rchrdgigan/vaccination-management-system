@@ -102,7 +102,7 @@ class ChildVaccinesController extends Controller
         return view('Pages.ChildVaccination.edit',compact('child_vaccines','child'));
     }
 
-    public function update($child_vacc_id, ChildVaccine $child_vacc, UpdateRequest $request){
+    public function update($child_vacc_id, UpdateRequest $request){
 
         $validated = $request->validated();
 
@@ -115,13 +115,6 @@ class ChildVaccinesController extends Controller
         if(!isset($validated['has_inj_3rd_dose'])){
             $validated['has_inj_3rd_dose'] = false;
         }
-        $strArrVar = array('has_inj_1st_dose',
-                            'has_inj_2nd_dose',
-                            'has_inj_3rd_dose');
-
-        $chck_vaccine_id = $child_vacc->where('id', $child_vacc_id)->first();
-        $get_vacc_dose = Vaccine::where('id', $chck_vaccine_id->vaccine_id)->first();
-        $set_stat = $child_vacc->where( $strArrVar[$get_vacc_dose->has_dose - 1], true)->where('id', $child_vacc_id)->get();
         ChildVaccine::where('id', $child_vacc_id)->update([
             'inj_1st_date' => (isset($validated['inj_1st_date'])) ? Carbon::parse($validated['inj_1st_date'])->format('Y-m-d\TH:i') : null,
             'has_inj_1st_dose' => $validated['has_inj_1st_dose'],
@@ -129,8 +122,14 @@ class ChildVaccinesController extends Controller
             'has_inj_2nd_dose' => $validated['has_inj_2nd_dose'],
             'inj_3rd_date' => (isset($validated['inj_3rd_date'])) ? Carbon::parse($validated['inj_3rd_date'])->format('Y-m-d\TH:i') : null,
             'has_inj_3rd_dose' => $validated['has_inj_3rd_dose'],
-            'status' => ($set_stat->isNotEmpty())? 'Partial-Vaccinated' : 'Fully-Vaccinated',
         ]);
+        $strArrVar = ['has_inj_1st_dose','has_inj_2nd_dose','has_inj_3rd_dose'];
+        $chck_vaccine_id = ChildVaccine::where('id', $child_vacc_id)->first();
+        $get_vacc_dose = Vaccine::where('id', $chck_vaccine_id->vaccine_id)->first();
+        $set_stat = $chck_vaccine_id->where( $strArrVar[$get_vacc_dose->has_dose - 1], true)->where('id', $child_vacc_id)->get();
+        $chck_vaccine_id->status = ($set_stat->isEmpty())? 'Partial-Vaccinated' : 'Fully-Vaccinated';
+        $chck_vaccine_id->update();
+
         return redirect()->route('child-vaccines.index')->withSuccess('Child Vaccines has been updated');
     }
 
