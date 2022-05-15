@@ -253,4 +253,166 @@ class ChildVaccinesController extends Controller
 
         return redirect()->back()->withSuccess('Vaccine successfully added!');
     }
+
+    public function viewReport(){
+        $vaccines = Vaccine::get();
+        if(isset($_GET['from']) && isset($_GET['to'])){
+            $child_vax = ChildVaccine::whereBetween('created_at', [Carbon::parse(request('from')), Carbon::parse(request('to'))])
+            ->get();
+        }else{
+            $child_vax = ChildVaccine::whereMonth('created_at', date('m'))
+            ->get();
+        }
+        return view('Pages.GenerateReport.vaccine-report',compact('vaccines','child_vax'));
+    }
+    public function viewReportChild(Vaccine $vaccine, $strArrVar = ['1st','2nd','3rd']){
+        if(isset($_GET['vaccines_name'])){
+            $dose = $_GET['dose'];
+            $vaccine = Vaccine::where('vaccines_name',$_GET['vaccines_name'])->where('barangay_id',auth()->user()->barangay_id)->first();
+            if($vaccine){
+                for($x = 0; $x <= $vaccine->has_dose; $x++){
+                    if($_GET['from'] != "" && $_GET['to'] != ""){
+                        if($dose == $x){
+                            $child_vaccines = ChildVaccine::where('vaccine_id', $vaccine->id)->join('children', 'children.id', '=', 'child_vaccines.child_id')->join('vaccines', 'vaccines.id', '=', 'child_vaccines.vaccine_id')
+                            ->select(
+                                'child_vaccines.id as id',
+                                'child_vaccines.child_id as child_id',
+                                'children.childs_name as childs_name',
+                                'children.mothers_name as mothers_name',
+                                'children.fathers_name as fathers_name',
+                                'children.date_of_birth as date_of_birth',
+                                'vaccines.id as vaccine_id',
+                                'child_vaccines.barangay_id',
+                                'vaccines.vaccines_name as vaccines_name',
+                                'vaccines.brand_name as brand_name',
+                                'vaccines.has_dose as has_dose',
+                                'child_vaccines.inj_'.$strArrVar[$x-1].'_date as inj_'.$strArrVar[$x-1].'_date',
+                                'child_vaccines.has_inj_'.$strArrVar[$x-1].'_dose as has_inj_'.$strArrVar[$x-1].'_dose',
+                            )
+                            ->groupBy('child_vaccines.child_id','children.date_of_birth',
+                            'children.fathers_name',
+                            'children.mothers_name',
+                            'children.childs_name',
+                            'child_vaccines.barangay_id',
+                            'child_vaccines.id','vaccines.id',
+                            'vaccines.vaccines_name',
+                            'vaccines.brand_name',
+                            'vaccines.has_dose',
+                            'child_vaccines.inj_'.$strArrVar[$x-1].'_date',
+                            'child_vaccines.has_inj_'.$strArrVar[$x-1].'_dose')
+                            ->where('child_vaccines.barangay_id', auth()->user()->barangay_id)
+                            ->whereBetween('inj_'.$strArrVar[$x-1].'_date', [Carbon::parse($_GET['from']), Carbon::parse($_GET['to'])])
+                            ->where('has_inj_'.$strArrVar[$x-1].'_dose', true)
+                            ->get();
+
+                            return view('Pages.GenerateReport.filter-child-vax',compact('vaccine','child_vaccines','dose'));
+                        }
+                    }else{
+                        return redirect()->back()->withWarning('Please fillup date from and date to!');
+                    }
+                }
+                return redirect()->back()->withWarning('Vaccine dose must be less than or equal to '.$vaccine->has_dose.'!');
+            }
+            return redirect()->back()->withWarning('Vaccine does not exist! Please input valid vaccine name...');
+        }else{
+            for($x = 0; $x <= 2; $x++){
+                $strArrVar = ['1st','2nd','3rd'];
+                $child_vaccine_dose1 = ChildVaccine::join('children', 'children.id', '=', 'child_vaccines.child_id')->join('vaccines', 'vaccines.id', '=', 'child_vaccines.vaccine_id')
+                ->select(
+                    'child_vaccines.id as id',
+                    'child_vaccines.child_id as child_id',
+                    'children.childs_name as childs_name',
+                    'children.mothers_name as mothers_name',
+                    'children.fathers_name as fathers_name',
+                    'children.date_of_birth as date_of_birth',
+                    'vaccines.id as vaccine_id',
+                    'child_vaccines.barangay_id',
+                    'vaccines.vaccines_name as vaccines_name',
+                    'vaccines.brand_name as brand_name',
+                    'vaccines.has_dose as has_dose',
+                    'child_vaccines.inj_1st_date as inj_1st_date',
+                    'child_vaccines.has_inj_1st_dose as has_inj_1st_dose',
+                )
+                ->groupBy('child_vaccines.child_id','children.date_of_birth',
+                'children.fathers_name',
+                'children.mothers_name',
+                'children.childs_name',
+                'child_vaccines.barangay_id',
+                'child_vaccines.id','vaccines.id',
+                'vaccines.vaccines_name',
+                'vaccines.brand_name',
+                'vaccines.has_dose',
+                'child_vaccines.inj_1st_date',
+                'child_vaccines.has_inj_1st_dose')
+                ->where('child_vaccines.barangay_id', auth()->user()->barangay_id)
+                ->where('has_inj_1st_dose', true)
+                ->get();
+                $child_vaccine_dose2 = ChildVaccine::join('children', 'children.id', '=', 'child_vaccines.child_id')->join('vaccines', 'vaccines.id', '=', 'child_vaccines.vaccine_id')
+                ->select(
+                    'child_vaccines.id as id',
+                    'child_vaccines.child_id as child_id',
+                    'children.childs_name as childs_name',
+                    'children.mothers_name as mothers_name',
+                    'children.fathers_name as fathers_name',
+                    'children.date_of_birth as date_of_birth',
+                    'vaccines.id as vaccine_id',
+                    'child_vaccines.barangay_id',
+                    'vaccines.vaccines_name as vaccines_name',
+                    'vaccines.brand_name as brand_name',
+                    'vaccines.has_dose as has_dose',
+                    'child_vaccines.inj_2nd_date as inj_2nd_date',
+                    'child_vaccines.has_inj_2nd_dose as has_inj_2nd_dose',
+                )
+                ->groupBy('child_vaccines.child_id','children.date_of_birth',
+                'children.fathers_name',
+                'children.mothers_name',
+                'children.childs_name',
+                'child_vaccines.barangay_id',
+                'child_vaccines.id','vaccines.id',
+                'vaccines.vaccines_name',
+                'vaccines.brand_name',
+                'vaccines.has_dose',
+                'child_vaccines.inj_2nd_date',
+                'child_vaccines.has_inj_2nd_dose')
+                ->where('child_vaccines.barangay_id', auth()->user()->barangay_id)
+                ->where('has_inj_2nd_dose', true)
+                ->get();
+                $child_vaccine_dose3 = ChildVaccine::join('children', 'children.id', '=', 'child_vaccines.child_id')->join('vaccines', 'vaccines.id', '=', 'child_vaccines.vaccine_id')
+                ->select(
+                    'child_vaccines.id as id',
+                    'child_vaccines.child_id as child_id',
+                    'children.childs_name as childs_name',
+                    'children.mothers_name as mothers_name',
+                    'children.fathers_name as fathers_name',
+                    'children.date_of_birth as date_of_birth',
+                    'vaccines.id as vaccine_id',
+                    'child_vaccines.barangay_id',
+                    'vaccines.vaccines_name as vaccines_name',
+                    'vaccines.brand_name as brand_name',
+                    'vaccines.has_dose as has_dose',
+                    'child_vaccines.inj_3rd_date as inj_3rd_date',
+                    'child_vaccines.has_inj_3rd_dose as has_inj_3rd_dose',
+                )
+                ->groupBy('child_vaccines.child_id','children.date_of_birth',
+                'children.fathers_name',
+                'children.mothers_name',
+                'children.childs_name',
+                'child_vaccines.barangay_id',
+                'child_vaccines.id','vaccines.id',
+                'vaccines.vaccines_name',
+                'vaccines.brand_name',
+                'vaccines.has_dose',
+                'child_vaccines.inj_3rd_date',
+                'child_vaccines.has_inj_3rd_dose')
+                ->where('child_vaccines.barangay_id', auth()->user()->barangay_id)
+                ->where('has_inj_3rd_dose', true)
+                ->get();
+            }
+
+            $child_vaccines = array($child_vaccine_dose1, $child_vaccine_dose2, $child_vaccine_dose3);
+            
+            return view('Pages.GenerateReport.child-vaccine-report',compact('vaccine','child_vaccines'));
+
+        }
+    }
 }

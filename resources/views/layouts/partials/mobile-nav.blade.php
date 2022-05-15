@@ -33,8 +33,22 @@
         <li>
             <a href="#" class="menu menu">
                 <div class="menu__icon"> <i data-feather="calendar"></i> </div>
-                <div class="menu__title"> Generate Report </div>
+                <div class="menu__title"> Generate Report  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down side-menu__sub-icon"><polyline points="6 9 12 15 18 9"></polyline></svg> </div>
             </a>
+            <ul class="" style="display: none;">
+                <li>
+                    <a href="{{route('generate-report.view')}}" class="menu {{!request()->routeIs('generate-report.view') ?: 'menu--active'}}">
+                        <div class="menu__icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg> </div>
+                        <div class="menu__title"> Vaccine Report </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('generate-report.viewchild')}}" class="menu {{!request()->routeIs('generate-report.viewchild') ?: 'menu--active'}}">
+                        <div class="menu__icon"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg> </div>
+                        <div class="menu__title"> Child Vaccines Report </div>
+                    </a>
+                </li>
+            </ul>
         </li>
     </ul>
 </div>
