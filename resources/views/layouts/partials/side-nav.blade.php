@@ -30,10 +30,24 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="side-menu ">
+                        <a href="javascript:;" class="side-menu {{!request()->routeIs('generate-report.*') ?: 'side-menu--active'}}">
                             <div class="side-menu__icon"> <i data-feather="calendar"></i> </div>
-                            <div class="side-menu__title"> Generate Report </div>
+                            <div class="side-menu__title"> Generate Report <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down side-menu__sub-icon"><polyline points="6 9 12 15 18 9"></polyline></svg> </div>
                         </a>
+                        <ul class="" style="display: none;">
+                            <li>
+                                <a href="{{route('generate-report.view')}}" class="side-menu {{!request()->routeIs('generate-report.view') ?: 'side-menu--active'}}">
+                                    <div class="side-menu__icon">  <i data-feather="clipboard"></i></div>
+                                    <div class="side-menu__title"> Vaccine Report </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('generate-report.viewchild')}}" class="side-menu {{!request()->routeIs('generate-report.viewchild') ?: 'side-menu--active'}}">
+                                    <div class="side-menu__icon"> <i data-feather="clipboard"></i></div>
+                                    <div class="side-menu__title"> Child Vaccines Report </div>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </nav>

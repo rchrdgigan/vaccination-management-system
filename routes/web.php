@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{ChildVaccinesImportController,ChildImportController, ChildrenController,VaccinesController,VaccinesExportController, VaccinesImportController,ChildVaccinesController};
+use App\Http\Controllers\{ChildVaccinesImportController,ChildImportController, ChildrenController,VaccinesController,VaccinesExportController, VaccinesImportController,ChildVaccinesController,GenerateReportController};
 use App\Models\Barangay;
 use Illuminate\Support\Facades\Route;
 
@@ -56,7 +56,14 @@ Route::middleware('auth')->group(function(){
             Route::get('/available/vaccine/{child_id}', 'getChildVaccineAvailable')->name('available');
             Route::post('/inject', 'injectData')->name('inject');
         });
-
+    Route::controller(ChildVaccinesController::class)
+        ->as('generate-report.')
+        ->prefix('generate-report')
+        ->group(function(){
+            Route::get('/report/view', 'viewReport')->name('view');
+            Route::get('/report/view/child', 'viewReportChild')->name('viewchild');
+        });
+    
     Route::post('/vaccines/import', [VaccinesImportController::class, 'store'])->name('vaccines.import');
     Route::post('/child/import', [ChildImportController::class, 'store'])->name('child.import');
     Route::post('/child-vaccines/import', [ChildVaccinesImportController::class, 'store'])->name('child-vaccines.import');
